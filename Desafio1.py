@@ -1,3 +1,5 @@
+CODIGO PARA EL COMITE DE LA FIFA, MUNDIAL DE FUTBOL 2026 (FASE DE GRUPOS)
+
 def imprimir_tabla(tabla, titulo):
     """Imprime la tabla de posiciones con un título específico.
 
@@ -48,54 +50,54 @@ def crear_equipos_validos_mundial_2026():
     # Lista canónica (según consigna) en el idioma y tildes provistas.
     # Nota: se valida con casefold(), pero devolvemos el nombre canónico.
     paises = [
-        "Canada",
-        "Estados Unidos",
-        "Mexico",
-        "Japon",
-        "Iran",
-        "Uzbekistan",
-        "Corea del Sur",
-        "Jordania",
-        "Australia",
-        "Argentina",
-        "Ecuador",
-        "Brasil",
-        "Nueva Zelandia",
-        "Marruecos",
-        "Tunez",
-        "Colombia",
-        "Paraguay",
-        "Uruguay",
-        "Egipto",
-        "Argelia",
-        "Ghana",
-        "Cabo Verde",
-        "Sudafrica",
-        "Qatar",
-        "Inglaterra",
-        "Costa de Marfil",
-        "Senegal",
-        "Arabia Saudita",
-        "Francia",
-        "Portugal",
-        "Noruega",
-        "Croacia",
-        "Alemania",
-        "Paises Bajos",
-        "Suiza",
-        "Escocia",
-        "España",
-        "Austria",
-        "Belgica",
-        "Panamá",
-        "Curazao",
-        "Haiti",
-        "Suecia",
-        "Turquia",
-        "Republica Checa",
-        "Bosnia y Herzegovina",
-        "Republica del Congo",
-        "Irak",
+        "CAN",
+        "USA",
+        "MEX",
+        "JPN",
+        "IRN",
+        "UZB",
+        "KOR",
+        "JOR",
+        "AUS",
+        "ARG",
+        "ECU",
+        "BRA",
+        "NZL",
+        "MAR",
+        "TUN",
+        "COL",
+        "PAR",
+        "URU",
+        "EGY",
+        "ALG",
+        "GHA",
+        "CPV",
+        "RSA",
+        "QAT",
+        "ENG",
+        "CIV",
+        "SEN",
+        "KSA",
+        "FRA",
+        "POR",
+        "NOR",
+        "CRO",
+        "GER",
+        "NED",
+        "SUI",
+        "SCO",
+        "ESP",
+        "AUT",
+        "BEL",
+        "PAN",
+        "CUW",
+        "HAI",
+        "SWE",
+        "TUR",
+        "CZE",
+        "BIH",
+        "COD",
+        "IRQ",
     ]
     return {p.casefold(): p for p in paises}
 
@@ -161,6 +163,10 @@ def main():
     # Guardamos parejas canónicas (min, max en casefold) para que sea independiente del orden.
     enfrentamientos_jugados = set() 
 
+    # RESTRICCIÓN (corner case): un equipo no puede jugar más de una vez por fecha.
+    # Hay 3 fechas y se ingresan 6 partidos (2 por fecha).
+    equipos_jugados_por_fecha = {1: set(), 2: set(), 3: set()}
+
     for i in range(total_partidos):
         # Mostrar encabezado de fecha cada 2 partidos
         if i % 2 == 0:
@@ -213,9 +219,16 @@ def main():
                 if not (0 <= gl <= 20 and 0 <= gv <= 20):
                     print("Error: Los goles deben estar entre 0 y 20 (inclusive).")
                     continue
+
+                # RESTRICCIÓN (corner case): en una misma FECHA, un equipo solo puede jugar 1 partido.
+                nro_fecha_actual = (i // 2) + 1
+                if local in equipos_jugados_por_fecha[nro_fecha_actual] or visitante in equipos_jugados_por_fecha[nro_fecha_actual]:
+                    print("Error: Un equipo no puede jugar más de un partido en la misma fecha. Ingrese un partido válido.")
+                    continue
                 
                 # Normalizamos claves para contar equipos del grupo sin duplicados por mayúsc/minúsc.
                 # Usamos nombres canónicos (ya validados arriba) así que local/visitante ya son canónicos.
+
 
                 # RESTRICCIÓN: Máximo 4 equipos por grupo
                 equipos_nuevos = 0
@@ -242,6 +255,11 @@ def main():
 
                 # Si todo está bien, registramos y salimos del while True
                 enfrentamientos_jugados.add(llave_enfrentamiento)
+
+                # Actualizamos la restricción por fecha (equipos que ya jugaron).
+                equipos_jugados_por_fecha[nro_fecha_actual].add(local)
+                equipos_jugados_por_fecha[nro_fecha_actual].add(visitante)
+
                 registrar_equipo(equipos, local)
                 registrar_equipo(equipos, visitante)
                 procesar_partido(equipos, local, visitante, gl, gv)
