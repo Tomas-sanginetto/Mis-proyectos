@@ -1,0 +1,195 @@
+SISTEMA DE CLASIFICACIÓN FIFA – COPA MUNDIAL 2026
+Explicación completa del programa
+
+--------------------------------------------------
+1) OBJETIVO DEL PROGRAMA
+--------------------------------------------------
+El programa simula la fase de grupos (fase de clasificación) del Mundial FIFA 2026 para un grupo de 4 equipos.
+
+Para cada grupo se ingresan los resultados de exactamente 6 partidos (todos contra todos una vez). Luego el programa:
+- Registra estadísticas por equipo (pts, PJ, GF y GC)
+- Calcula goles a favor y en contra
+- Calcula diferencia de gol (DG = GF - GC)
+- Ordena la tabla final con criterios tipo FIFA
+- Muestra clasificados (1° y 2°) y el 3° puesto
+- Imprime tablas provisionales a lo largo del proceso
+- Realiza validaciones y controla entradas incorrectas
+
+El desarrollo está hecho en Python, usando principalmente diccionarios y listas
+
+--------------------------------------------------
+2) ESTRUCTURA GENERAL DEL PROGRAMA
+--------------------------------------------------
+El código está dividido en funciones para facilitar lectura y mantenimiento:
+
+1. imprimir_tabla()
+2. registrar_equipo()
+3. validar_equipo_clasificado()
+4. crear_equipos_validos_mundial_2026()
+5. procesar_partido()
+6. ordenar_tabla()
+7. main()
+
+--------------------------------------------------
+3) FUNCIONES PRINCIPALES
+--------------------------------------------------
+
+3.1) imprimir_tabla(tabla, titulo)
+Esta función imprime la tabla de posiciones con un formato prolijo.
+
+- Recibe:
+  - tabla: lista ordenada de tuplas (equipo, datos)
+  - titulo: texto del encabezado (provisoria o final)
+- Calcula DG por equipo como: DG = GF - GC
+- Recorre la tabla con enumerate(..., 1) para mostrar el número de posición (1, 2, 3, 4).
+
+3.2) registrar_equipo(equipos, equipo)
+Inicializa el equipo dentro del diccionario si todavía no existe.
+
+Si el equipo no está en equipos, crea su estructura con:
+- pts = 0
+- pj  = 0
+- gf  = 0
+- gc  = 0
+
+3.3) validar_equipo_clasificado
+Valida que el país ingresado pertenezca a las selecciones habilitadas para el Mundial 2026.
+
+- Se usa nombre.casefold() para comparar de manera segura ignorando mayúsculas/minúsculas.
+- Si no está en la lista permitida se lanza Error.
+- Si es válido, devuelve el nombre(tal como se guarda en el mapa).
+
+3.4) crear_equipos_validos_mundial_2026()
+Construye el diccionario de países permitidos.
+
+Retorna un map:
+- clave: casefold del país (ej: "arg")
+- valor: país canónico (ej: "ARG")
+
+3.5) procesar_partido(equipos, local, visitante, gl, gv)
+Actualiza las estadísticas luego de cargar un partido.
+
+Actualiza:
+- pj (partidos jugados) para local y visitante
+- gf (goles a favor) y gc (goles en contra)
+- pts (puntos) con regla tipo FIFA:
+  - victoria: 3 puntos
+  - empate: 1 punto para cada uno
+  - derrota: 0 puntos
+
+3.6) ordenar_tabla(equipos)
+Ordena los equipos de acuerdo con criterios de clasificación.
+
+Primero convierte el diccionario a lista:
+- tabla = list(equipos.items())
+
+Luego aplica un sort con estas prioridades (de mayor a menor):
+1) Puntos (pts) DESC
+2) Diferencia de gol (gf - gc) DESC
+3) Goles a favor (gf) DESC
+4) Alfabético del nombre (x[0]) ASC
+
+Esto resuelve empates de manera consistente sin necesidad de “recalcular” manualmente.
+
+--------------------------------------------------
+4) FUNCIÓN main() (FLUJO PRINCIPAL)
+--------------------------------------------------
+La función main() controla la interacción con el usuario.
+
+4.1) Datos iniciales
+- equipos = {}
+- equipos_validos_map = crear_equipos_validos_mundial_2026()
+- total_partidos = 6
+- enfrentamientos_jugados = set() para no repetir partidos
+- equipos_jugados_por_fecha = {1: set(), 2: set(), 3: set()} para que un equipo no juegue dos veces en la misma fecha
+
+4.2) Ingreso de los partidos
+Se repite un loop de 6 iteraciones (una por cada partido) y dentro de cada partido hay un while True hasta que la entrada sea válida.
+
+El usuario ingresa una línea con el formato:
+EquipoLocal EquipoVisitante GolesL GolesV
+
+Se separa con split() y se valida que haya exactamente 4 datos.
+
+4.3) Validaciones de entrada
+El programa verifica:
+- La entrada no puede estar vacía
+- Exactamente 4 tokens por línea
+- Los equipos deben estar habilitados para el Mundial 2026 (48 países)
+- No puede existir local == visitante
+- No se puede repetir un enfrentamiento (aunque se ingrese invertido). Para eso usa:
+  - llave_enfrentamiento = tuple(sorted([local.casefold(), visitante.casefold()]))
+- Los goles deben estar entre 0 y 20 (inclusive)
+- No se puede jugar más de un partido en la misma FECHA (1..3). Usa equipos_jugados_por_fecha.
+- Límite de 4 equipos distintos por grupo.
+- Límite de 3 partidos por equipo (no permitir PJ >= 3 antes de registrar el partido nuevo).
+
+Si algo falla, el programa muestra un mensaje y pide nuevamente el mismo partido.
+
+4.4) Actualización del grupo
+Cuando el partido es válido:
+- Se registra en enfrentamientos_jugados
+- Se marca a los equipos como “jugados” en la fecha correspondiente
+- Se inicializa el equipo si hace falta (registrar_equipo)
+- Se actualizan estadísticas (procesar_partido)
+
+--------------------------------------------------
+5) TABLAS PROVISORIAS Y TABLA FINAL
+--------------------------------------------------
+
+5.1) Tablas provisionales
+El programa muestra una tabla cada 2 partidos:
+- si (i + 1) % 2 == 0
+Esto corresponde a 3 fechas dentro del grupo:
+- Fecha 1: después de 2 partidos
+- Fecha 2: después de 4 partidos
+- Fecha 3: después de 6 partidos
+
+5.2) Clasificados y tercer puesto
+Al finalizar la tercera fecha (cuando ya están los 6 partidos), ordena la tabla final y muestra:
+- 1° puesto: tabla_actual[0][0]
+- 2° puesto: tabla_actual[1][0]
+- 3° puesto: tabla_actual[2][0]
+
+Además imprime la tabla final completa.
+
+--------------------------------------------------
+6) EMPATE ABSOLUTO (DETECCIÓN E INFORME)
+--------------------------------------------------
+En el código existe una sección que detecta si hay “empates absolutos” en la tabla final.
+
+Se considera empate absoluto cuando dos equipos tienen simultáneamente:
+- mismos puntos (pts)
+- misma diferencia de gol (gf - gc)
+- mismos goles a favor (gf)
+
+Importante:
+- Esta detección SOLO informa que hay un empate absoluto.
+- El orden final NO se recalcula en ese bloque.
+- El desempate real para definir el ranking ya está resuelto antes por ordenar_tabla(), que usa el criterio alfabético como último criterio.
+
+--------------------------------------------------
+7) CONCEPTOS DE PROGRAMACIÓN UTILIZADOS
+--------------------------------------------------
+- Funciones
+- Diccionarios (equipos y mapa de países válidos)
+- Listas (tabla ordenada)
+- Sets (evitar partidos repetidos y controlar equipos por fecha)
+- Ciclos: for y while True
+- Try/except para manejar errores de entrada
+- Ordenamiento con lambda (criterios de ranking)
+- f-strings para formato de salida
+
+--------------------------------------------------
+8) CONCLUSIÓN
+--------------------------------------------------
+El programa implementa un sistema completo de clasificación de fase de grupos para el Mundial 2026:
+- recibe resultados de 6 partidos
+- valida entradas y evita inconsistencias
+- calcula puntos y estadísticas
+- ordena la tabla con criterios tipo FIFA
+- muestra provisionales y final
+- identifica clasificados y el tercer puesto
+- informa casos de empate absoluto sin alterar la lógica del ranking final
+
+Este enfoque prioriza robustez, claridad y cumplimiento de la consigna.
