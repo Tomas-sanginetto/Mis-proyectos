@@ -1,0 +1,155 @@
+# Caracteres que se ignoran al leer el archivo (generados por el sistema
+# operativo o por el usuario al formatear el texto)
+ESPACIOS = (" ", "\t", "\r", "\n")
+
+# Únicos caracteres aceptados según la consigna
+VALIDOS = ("L", "R", "C")
+
+
+def limpiar_y_validar(contenido):
+    """Procesa el contenido del archivo carácter por carácter.
+
+    Ignora espacios, tabs y saltos de línea automáticamente.
+    Acepta mayúsculas y minúsculas convirtiendo todo a mayúsculas.
+    Recolecta todos los caracteres inválidos encontrados (sin repetir).
+
+    Args:
+        contenido (str): Texto crudo leído desde el archivo.
+
+    Returns:
+        tuple: (secuencia_limpia, invalidos)
+            - secuencia_limpia (str): solo L, R, C en mayúsculas.
+            - invalidos (list): lista de caracteres inválidos únicos encontrados.
+    """
+    secuencia = ""
+    invalidos = []
+    for caracter in contenido.upper():
+        if caracter in VALIDOS:
+            secuencia += caracter
+        elif caracter in ESPACIOS:
+            # Los espacios y saltos de línea se ignoran sin error
+            continue
+        else:
+            # Recolecta inválidos únicos sin detener el recorrido
+            if caracter not in invalidos:
+                invalidos.append(caracter)
+    return secuencia, invalidos
+
+
+def cargar_secuencia():
+    """Solicita al usuario la ruta de un archivo .txt y retorna la secuencia validada.
+
+    Funciona en cualquier entorno (VSCode, Thonny, IDLE, terminal, etc.)
+    usando rutas absolutas o relativas estándar de Python sin bibliotecas externas.
+    El .strip('"') maneja el caso de Windows donde al copiar la ruta
+    el sistema agrega comillas automáticamente.
+
+    Returns:
+        str: Secuencia de caracteres L, R y C en mayúsculas.
+    """
+    while True:
+        # .strip('"') elimina las comillas que Windows agrega al copiar rutas
+        ruta = input("Ruta del archivo (.txt): ").strip().strip('"')
+
+        if not ruta.endswith(".txt"):
+            print("Error: el archivo debe tener extensión .txt")
+            print("Intente nuevamente.\n")
+            continue
+
+        try:
+            archivo = open(ruta, "r")
+            contenido = archivo.read()
+            archivo.close()
+        except FileNotFoundError:
+            print("Error: no se encontró el archivo en esa ruta.")
+            print("Verifique que la ruta sea correcta y que el archivo exista.")
+            print("Intente nuevamente.\n")
+            continue
+
+        secuencia, invalidos = limpiar_y_validar(contenido)
+
+        if len(invalidos) == 1:
+            print(f"Error: el archivo contiene el carácter inválido '{invalidos[0]}'.")
+            print("Solo se permiten L (izquierda), R (derecha) y C (centro).")
+            print("Intente nuevamente.\n")
+            continue
+        elif len(invalidos) > 1:
+            print(f"Error: el archivo contiene {len(invalidos)} caracteres inválidos (solo se permiten L, R y C).")
+            print("Intente nuevamente.\n")
+            continue
+
+        if len(secuencia) == 0:
+            print("Error: el archivo está vacío. Ingrese una secuencia válida.")
+            print("Intente nuevamente.\n")
+            continue
+
+        if len(secuencia) > 1000:
+            print(f"Error: la secuencia tiene {len(secuencia)} caracteres.")
+            print("El máximo permitido es 1000.")
+            print("Intente nuevamente.\n")
+            continue
+
+        return secuencia
+
+
+def contar_penales(secuencia):
+    """Recorre la secuencia una sola vez y cuenta los tiros por dirección.
+
+    Se recorre una única vez (un solo for) para cumplir con el criterio
+    de eficiencia solicitado en la consigna.
+
+    Args:
+        secuencia (str): Cadena de caracteres L, R y C.
+
+    Returns:
+        tuple: (cantidad_L, cantidad_R, cantidad_C)
+    """
+    cant_l = 0
+    cant_r = 0
+    cant_c = 0
+    for penal in secuencia:
+        if penal == "L":
+            l += 1
+        elif penal == "R":
+            r += 1
+        elif penal == "C":
+            c += 1
+    return l, r, c
+
+
+def determinar_direccion(l, r, c):
+    """Determina la dirección dominante aplicando la regla de desempate L > R > C.
+
+    La prioridad táctica oficial es: izquierda > derecha > centro.
+    Se implementa con >= en cascada: si L empata con cualquiera, L gana.
+    Si R empata con C (y L ya fue descartada), R gana.
+    Solo llega a C si superó a las otras dos.
+
+    Args:
+        l (int): Cantidad de tiros a la izquierda.
+        r (int): Cantidad de tiros a la derecha.
+        c (int): Cantidad de tiros al centro.
+
+    Returns:
+        tuple: (dirección dominante, cantidad de apariciones)
+    """
+    # >= en lugar de > garantiza que en empate gane la prioridad táctica
+    if l >= r and l >= c:
+        return "L", l
+    elif r >= c:
+        return "R", r
+    else:
+        return "C", c
+
+
+def main():
+    """Función principal: carga el archivo, analiza y muestra la predicción."""
+    secuencia = cargar_secuencia()
+    l, r, c = contar_penales(secuencia)
+    direccion, cantidad = determinar_direccion(l, r, c)
+    print(direccion)
+    print(cantidad)
+
+
+if __name__ == "__main__":
+    main()
