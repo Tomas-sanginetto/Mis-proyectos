@@ -1,0 +1,15 @@
+def concatenar(a, b):
+    a = str(a)
+    b = str(b)
+    final = a + b
+    return final
+
+
+def main():
+    x = int(input("Ingrese su primer numero:"))
+    y = int(input("Ingrese su segundo numero:"))
+    resultado = concatenar(x, y)
+    print("Tu numero concatenado quedo:", resultado)
+
+
+main()
