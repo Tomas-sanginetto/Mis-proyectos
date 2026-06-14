@@ -1,0 +1,13 @@
+def definir_bisiesto(a):
+    if a % 4 == 0 and a % 400 == 0:
+        print("Tu año es bisiesto")
+    else:
+        print("Tu año NO es bisiesto")
+
+
+def main():
+    año = int(input("Ingrese cualquier año:"))
+    definir_bisiesto(año)
+
+
+main()
