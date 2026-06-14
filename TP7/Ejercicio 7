@@ -1,0 +1,23 @@
+# Funcion que devuelva el reverso de un numero recibido por parametro
+
+#====================================================================
+#                           INCOMPLETO
+#====================================================================
+
+
+def calcular_reverso(a):
+
+    a = str(a)
+    resultado = ""
+    for num in a, -1:
+        resultado = resultado + num
+    return resultado
+
+
+def main():
+    num = int(input("Ingrese un numero para mostrar su reverso:"))
+    resultado = calcular_reverso(num)
+    print("El reverso de tu numero es:", resultado)
+
+
+main()
