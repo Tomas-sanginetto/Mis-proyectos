@@ -1,0 +1,10 @@
+# Funcion que sume y devuelva la sumatoria de los numeros de sucesion fibb
+# entre dos numeros de terminos dados , parametros
+# Utilizar cadenas de caracteres y numeros enteros sin cambiar el tipo
+
+def sumatoria():
+
+
+
+def main():
+    
