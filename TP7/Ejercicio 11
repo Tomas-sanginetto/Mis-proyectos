@@ -1,0 +1,18 @@
+def extraer_digito(a, b):
+    a = str(a)
+    b = str(b)
+    final = len(a) - len(b)
+    return final
+
+def main():
+    x = int(input("Ingrese el numero a extraer digitos:"))
+    while x < 1:
+        print("Debe ingresar un valor valido")
+        x = int(input("Ingrese el numero a extraer digitos:"))
+
+    y = int(input("Ingrese la cantidad de numeros a extraer:"))
+    resultado = extraer_digito(x, y)
+    print("Tu digito quedo:", resultado)
+
+
+main()
