@@ -1,0 +1,16 @@
+# Escribir una funcion que reciba como parametro dos numeros enteros
+# Devuelva la concatenacion de ambos
+
+def concatenar(a, b):
+    final = str(a) + str(b)
+    return final
+
+
+def main():
+    num1 = int(input("Ingrese el primer numero a concatenar:"))
+    num2 = int(input("Ingrese el segundo numero a concatenar:"))
+    resultado = concatenar(num1, num2)
+    print("Tu concatenacion quedo asi:", resultado)
+
+
+main()
