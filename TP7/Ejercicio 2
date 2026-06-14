@@ -1,0 +1,28 @@
+# Diseniar una funcion para mostrar un titulo entre dos lineas de asteriscos
+
+def asteriscos(titulo, y):
+    print("*" * y)
+    print(titulo)
+    print("*" * y)
+
+def main():
+    titulo = input("Ingrese el mensaje a mostrar: ")
+    y = int(input("Ingrese la cantidad de asteriscos: "))
+    asteriscos(titulo, y)
+
+main()
+
+def multiplicador(a,b):
+    aux = 0
+    
+    for n in range(b):
+        aux = aux + a
+    return aux
+
+def main():
+    num1 = int(input("Ingrese el numero a multiplicar:"))
+    num2 = int(input("Ingrese la cantidad de veces a multiplicar:"))
+    resultado = multiplicador(num1, num2)
+    print("Tu resultado es:", resultado)
+
+main()
