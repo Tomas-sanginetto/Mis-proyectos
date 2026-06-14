@@ -1,0 +1,12 @@
+def devolver(a, b):
+    for numeros in range()
+
+
+def main():
+    x = int(input("Ingrese el numero:"))
+    y = int(input("Ingrese la cantidad de ultimos numeros a devolver:"))
+    resultado = devolver(x, y)
+    print("Los", y, "ultimos digitos de tu numero son:", resultado)
+
+
+main()
