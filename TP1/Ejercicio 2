@@ -1,0 +1,74 @@
+# Calcular el valor de las siguientes expresiones o definir las expresiones, respetando el orden establecido
+# Indicar el orden que ejecuta el interprete Python para cada una de las siguientes expresiones:
+
+a = 12 * 4 + 4 * 5
+# El orden de ejecución es el siguiente:
+# 1. Primero se realizan las multiplicaciones en ambos lados de la suma
+# 2. Se suman los resultados de las multiplicaciones para obtener el resultado final
+# 3. El resultado final de la expresión es 68
+print("El resultado de a es:", a)
+
+b = 12 * (4 + 4) * 5
+# El orden de ejecución es el siguiente:
+# 1. Primero se realiza la suma dentro del parentesis
+# 2. Se multiplica el resultado de la suma por 12 y por 5, sin importar el orden de las multiplicaciones, ya que ambas son de igual prioridad
+# 3. El resultado final de la expresión es 480
+print("El resultado de b es:", b)
+
+c = 5 * 4 / 2
+# El orden de ejecución es el siguiente:
+# 1. Primero se realiza la multiplicación entre 5 y 4
+# 2. Luego se divide el resultado de la multiplicación entre 2
+# 3. El resultado final de la expresión es 10
+print("El resultado de c es:", c)
+
+d = 5 * (4 / 2)
+# El orden de ejecución es el siguiente:
+# 1. Primero se realiza la división entre 4 y 2 dentro del parentesis
+# 2. Luego se multiplica el resultado de la división por 5
+# 3. El resultado final de la expresión es 10
+print("El resultado de d es:", d)
+
+e = 24 / 2 ** 2
+# El orden de ejecución es el siguiente:
+# 1. Primero se realiza la potencia de 2 elevado a 2
+# 2. Luego se divide 24 entre el resultado de la potencia
+# 3. El resultado final de la expresión es 6
+print("El resultado de e es:", e)
+
+f = (24 / 2) ** 2
+# El orden de ejecución es el siguiente:
+# 1. Primero se realiza la división entre 24 y 2 dentro del parentesis
+# 2. Luego se realiza la potencia del resultado de la división a la potencia de 2
+# 3. El resultado final de la expresión es 144
+print("El resultado de f es:", f)
+
+g = -9 ** 2
+# El orden de ejecución es el siguiente:
+# 1. Primero se realiza la potencia de -9 a la potencia de 2
+# 2. El resultado final de la expresión es -81 ya que el numero negativo esta sin parentesis
+print("El resultado de g es:", g)
+
+h = (-9) ** 2
+# El orden de ejecución es el siguiente:
+# 1. Primero se realiza la potencia de (-9) a la potencia de 2
+# 2. El resultado final de la expresión es 81 ya que el numero negativo esta entre parentesis
+print("El resultado de h es:", h)
+
+i = 10 / 3
+# El orden de ejecución es el siguiente:
+# 1. Primero se realiza la división entre 10 y 3
+# 2. El resultado final de la expresión es 3.3(Periodico) ya que es una sola "/"
+print("El resultado de i es:", i)
+
+j = 10 // 3
+# El orden de ejecución es el siguiente:
+# 1. Primero se realiza la división entre 10 y 3 utilizando la división entera "//"
+# 2. El resultado final de la expresión es 3 ya que es una división con "//", lo cual muestra solo el numero entero
+print("El resultado de j es:", j)
+
+k = 12 % 5
+# El orden de ejecución es el siguiente:
+# 1. Primero se realiza la operación de módulo entre 12 y 5
+# 2. El resultado final de la expresión es 2 ya que el módulo muestra el residuo de la división entre 12 y 5
+print("El resultado de k es:", k)
