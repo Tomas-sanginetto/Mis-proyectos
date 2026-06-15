@@ -1,0 +1,30 @@
+# Programa que permita ingresar el importe de cada venta
+# Terminar el dia con "-1"
+# Cual fue el monto vendido en el dia y la cantidad de ventas?
+# El monto debe ser positivo
+
+cantidad_ventas = 0
+monto = 0
+
+venta = float(input("Ingrese el monto de la venta: $"))
+while venta != -1:
+    while venta <= 0 and venta != -1:
+        print("Monto invalido, ingrese nuevamente")
+        venta = float(input("Ingrese el monto de la venta: $"))
+
+    if venta != -1:
+        cantidad_ventas = cantidad_ventas + 1
+        monto = monto + venta
+        venta = float(input("Ingrese el monto de la venta: $"))
+
+print("El monto total vendido en el dia fue de: $", monto)
+print("La cantidad de ventas realizadas fueron:", cantidad_ventas)
+
+# PSEUDOCODIGO
+
+# INICIO
+# Ingresar el importe de cada venta
+# Ingresar cantidad de ventas
+# Sumar el monto de cada venta para obtener el total vendido
+# Mostrar el monto total vendido y la cantidad de ventas
+# FIN
