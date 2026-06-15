@@ -1,0 +1,26 @@
+# Ingresar las notas de los dos parciales de un alumno e indicar:
+# "Promociona" : ambos parciales >= 7
+# "Aprobado" : ambos parciales >= 4
+# "Desaprobado" : al menos una de las notas menor a 4
+
+parcial1 = int(input("Ingresar la nota del primer parcial:"))
+parcial2 = int(input("Ingresar la nota del segundo parcial:"))
+
+if parcial1 >= 7 and parcial2 >= 7:
+    print("Felicitaciones, promociona!")
+elif parcial1 >= 4 and parcial2 >= 4:
+    print("Aprobado")
+else:
+    print("Debe recuperar")
+
+# PSEUDOCODIGO
+
+# INICIO
+# Ingresar nota1
+# Ingresar nota2
+# Comparar si nota1 es mayor o igual a 7 y nota2 es mayor o igual a 7
+# Mostrar "Promociona" si la comparación es verdadera
+# Comparar si nota1 es mayor o igual a 4 y nota2 es mayor o igual a 4
+# Mostrar "Aprueba" si la comparación es verdadera
+# Mostrar "Recupera" si alguna nota es menor a 4
+# FIN
