@@ -1,0 +1,14 @@
+# Programa que calcule el factorial de un numero dado
+# Se debe rechazar las entradas invalidad (Menores a 0)
+
+total = 1
+
+num = int(input("Ingrese un numero ENTERO:"))
+while num < 0:
+    print("Ingrese un numero mayor a 0")
+    num = int(input("Ingrese un numero ENTERO:"))
+
+for i in range(1,num + 1):
+        total = total * i
+
+print("El factorial de tu numero es:", total)
