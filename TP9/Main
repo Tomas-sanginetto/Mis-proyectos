@@ -1,0 +1,35 @@
+from funcionestp import *
+
+
+def main():
+
+    codigos = []
+    nombres = []
+    stocks = []
+
+    opcion = 0
+
+    while opcion != 5:
+        menu()
+        opcion = int(input("Ingrese una opcion: "))
+        if opcion == 1:
+            alta_producto(codigos,nombres,stocks)
+        elif opcion == 2:
+            modificar_stock(codigos,stocks)
+        elif opcion == 3:
+            informe = 0
+            while informe != 4:
+                menu_informes()
+                informe = int(input("Seleccione informe: "))
+                if informe == 1:
+                    listado_productos(codigos,nombres,stocks)
+                elif informe == 2:
+                    stock_minimo(codigos,stocks)
+                elif informe == 3:
+                    stock_maximo(codigos,stocks)
+        elif opcion == 4:
+            busqueda_producto(codigos,stocks)
+
+    print("Gracias por utilizar el programa!")
+
+main()
