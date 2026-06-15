@@ -1,0 +1,26 @@
+# Indica su numero de DNI y aguarda ser atendido, terminar el dia con -1 cuando no haya mas clientes x atender
+# Se desea saber quien fue el primer y ultimo cliente
+
+dni = int(input("Ingrese su numero de D.N.I (Sin puntos):"))
+primerAtendido = dni
+ultimoAtendido = dni
+
+while dni != -1:
+    print("Aguarde a ser atendido")
+    ultimoAtendido = dni
+    dni = int(input("Ingrese su numero de D.N.I (Sin puntos):"))
+
+if primerAtendido == -1:
+    print("No hubo clientes en el dia")
+else:
+    print("El primer cliente atendido del dia fue:", primerAtendido)
+    print("El ultimo cliente atendido del dia fue:", ultimoAtendido)
+
+# PSEUDOCODIGO
+
+# INICIO
+# Indicar cual es el numero de DNI del cliente
+# Recordar cual fue el primer cliente atendido
+# Recordar cual fue el ultimo cliente atendido
+# Mostrar el primer y ultimo cliente atendido
+# FIN
