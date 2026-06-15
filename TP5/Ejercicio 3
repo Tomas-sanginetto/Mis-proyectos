@@ -1,0 +1,52 @@
+# Aplica el precio base a la primera docena de unidades
+# Aplica un 10% de descuento a todas las unidades entre 13 y 100
+# Aplica un 25% de descuento a todas las unidades por encima de las 100
+# Programa que permita leer la cantidad de productos solicitada de un producto y su precio base
+# Mostrar el valor total de la venta y el precio promedio por unidad
+# Al finalizar informar: Cantidad de ventas realizadas
+# Cantidad de ventas que se aplicaron un 10%
+# Cantidad de ventas que solo se aplico el precio base
+# Finalizar el programa con -1
+
+cantidad_ventas = 0
+cantidad_10 = 0
+cantidad_base = 0
+
+cantidad = int(input("Ingrese la cantidad de productos que va a comprar:"))
+while cantidad != -1:
+    precioBase = int(input("Ingrese el precio base del producto (Por unidad): $"))
+
+    while precioBase < 1:
+        print("Monto invalido, intentelo nuevamente")
+        precioBase = int(input("Ingrese el precio base del producto (Por unidad): $"))
+
+    if cantidad <= 12:
+        print("Tu compra no califica para el descuento!")
+        monto1 = (cantidad * precioBase)
+        print("El valor total de tu compra es de: $", monto1 )
+        print("El precio promedio sera de: $", precioBase)
+        cantidad_base += 1
+        cantidad_ventas += 1
+
+    elif cantidad >= 13 and cantidad <= 100:
+        print("Tu compra tiene un descuento de 10% entre 13 y 100 productos")
+        monto2 = (12 * precioBase) + ((cantidad - 12) * (precioBase * 0.90))
+        print("El valor de tu compra es de: $", monto2)
+        promedio2 = monto2 / cantidad
+        print("El precio promedio sera de: $", promedio2)
+        cantidad_10 += 1
+        cantidad_ventas += 1
+
+    elif cantidad > 100:
+        print("Tenes un descuento del 25% a partir del producto numero 100")
+        monto3 = (12 * precioBase) + (88 * (precioBase * 0.90) + (cantidad - 100) * (precioBase * 0.75))
+        print("El valor de tu compra es de: $", monto3)
+        promedio3 = monto3 / cantidad
+        print("El precio promedio sera de: $", promedio3)
+        cantidad_ventas += 1
+
+    cantidad = int(input("Ingrese la cantidad de productos que va a comprar:"))
+
+print("Cantidad de ventas realizadas: ", cantidad_ventas)
+print("Cantidad de ventas que se aplicarion un 10% de descuento:", cantidad_10)
+print("Cantidad de ventas que no se aplicaron descuentos:", cantidad_base)
