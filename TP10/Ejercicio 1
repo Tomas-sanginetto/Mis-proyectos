@@ -1,0 +1,105 @@
+# TP10
+# A
+n = int(input("Ingrese tamaño de una matriz:"))
+matriz = []
+valor = 1
+for f in range(n):
+    fila = []
+    for i in range(n):
+        if f == i:
+            fila.append(valor)
+            valor += 2
+        else:
+            fila.append(0)
+    matriz.append(fila)
+
+
+def imprimirmatriz(matriz):
+    filas = len(matriz)
+    columnas = len(matriz)
+    for x in range(filas):
+        for d in range(columnas):
+            print("%3d" % matriz[x][d], end='')
+        print()
+imprimirmatriz(matriz)
+
+print("="*40)
+# B)
+matriz2 = []
+valor = 27
+
+for i in range(n):
+    fila = []
+
+    for l in range(n):
+        if i + l == n - 1:
+            fila.append(valor)
+            valor //= 3
+        else:
+            fila.append(0)
+
+    matriz2.append(fila)
+imprimirmatriz(matriz2)
+print("="*40)
+
+# C)
+matriz3 = []
+
+for i in range(n):
+    fila = []
+    valor = n - i
+
+    for l in range(n):
+        if l <= i:
+            fila.append(valor)
+        else:
+            fila.append(0)
+
+    matriz3.append(fila)
+
+imprimirmatriz(matriz3)
+print("="*40)
+# D
+matriz4 = []
+
+for i in range(n):
+    fila = []
+    valor = 2 ** (n - 1 - i)
+
+    for l in range(n):
+        fila.append(valor)
+
+    matriz4.append(fila)
+
+imprimirmatriz(matriz4)
+
+print("=" * 40)
+# E)
+matriz5 = []
+valor = 1
+
+for i in range(n):
+    fila = []
+    for l in range(n):
+        if (i + l) % 2 != 0:
+            fila.append(valor)
+            valor += 1
+        else:
+            fila.append(0)
+
+    matriz5.append(fila)
+
+imprimirmatriz(matriz5)
+
+print("=" * 40)
+# F
+matriz6 = []
+valor = 1
+for i in range(n):
+    fila = [0] * n
+    for l in range(n - 1, -1, -1):
+        if i + l >= n - 1:
+            fila[l] = valor
+            valor += 1
+    matriz6.append(fila)
+imprimirmatriz(matriz6)
