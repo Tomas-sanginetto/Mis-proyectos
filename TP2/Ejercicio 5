@@ -1,0 +1,65 @@
+# Programa que lea una cantidad de dinero que desea retirar el cliente e imprima a cuantos billetes equivale
+# Existen billetes de $1000 $ 500 $200 $100 $50 y $20
+# El resto en monedas
+# Desarrolar de tal forma que se minimice la cantidad de billetes entregados por el cajero
+
+billetes1000 = 0
+billetes500 = 0
+billetes200 = 0
+billetes100 = 0
+billetes50 = 0
+billetes20 = 0
+monedas = 0
+
+monto = float(input("Cantidad a retirar: $"))
+while monto < 0:
+    print("Monto invalido, intentelo nuevamente")
+    monto = float(input("Cantidad a retirar: $"))
+
+while monto > 0:
+    if monto > 1000:
+        billetes1000 += 1
+        monto = monto - 1000
+    elif monto < 1000 and monto >= 500:
+        billetes500 += 1
+        monto = monto - 500
+    elif monto < 500 and monto >= 200:
+        billetes200 += 1
+        monto = monto - 200
+    elif monto < 200 and monto >= 100:
+        billetes100 += 1
+        monto = monto - 100
+    elif monto < 100 and monto >= 50:
+        billetes50 += 1
+        monto = monto - 50
+    elif monto < 50 and monto >= 20:
+        billetes20 += 1
+        monto = monto - 20
+    elif monto < 20:
+        monedas += 1
+        monto = monto - 1
+
+print("Cantidad de billetes de $1000:", billetes1000)
+print("Cantidad de billetes de $500:", billetes500)
+print("Cantidad de billetes de $200:", billetes200)
+print("Cantidad de billetes de $100:", billetes100)
+print("Cantidad de billetes de $50:", billetes50)
+print("Cantidad de billetes de $20:", billetes20)
+print("Cantidad de monedas de $1:", monedas)
+
+
+# PSEUDOCODIGO
+# INICIO
+# Ingresar el monto a retirar
+# Inicializar en cero los contadores de cada billete y monedas
+# Mientras el monto sea mayor a cero repetir:
+#   Si el monto es mayor o igual a 1000, restar 1000 y sumar un billete de $1000
+#   Si el monto es mayor o igual a 500,  restar 500  y sumar un billete de $500
+#   Si el monto es mayor o igual a 200,  restar 200  y sumar un billete de $200
+#   Si el monto es mayor o igual a 100,  restar 100  y sumar un billete de $100
+#   Si el monto es mayor o igual a 50,   restar 50   y sumar un billete de $50
+#   Si el monto es mayor o igual a 20,   restar 20   y sumar un billete de $20
+#   Si el monto es menor a 20,           restar 1    y sumar una moneda de $1
+# Imprimir la cantidad de billetes de cada tipo
+# Imprimir la cantidad de monedas
+# FIN
