@@ -1,0 +1,76 @@
+# Generar un numero entero al azar de 4 cifras
+# Lo debe descubrir el usuario, ingresando valores hasta hallarlo
+# En cada num que el usuario ingrese el programa avisa si es menor o mayor
+# Permitir abandono al ingresar -1
+# Informar la cantidad de intentos una vez finalizado
+# Pedir el num de dni si el usuario mejoro su marca de intentos obtenida
+# Mostrar de manera ordenada los 5 mejores puntajes (Indicando a quien pertenece)
+# Preguntar si se desea jugar otra vez
+# Reiniciar el juego en caso afirmativo
+
+from random import randint
+
+
+def insertar_ranking(dnis, puntajes, dni, intentos):
+    dnis.append(dni)
+    puntajes.append(intentos)
+
+    j = len(puntajes) - 1
+    while j > 0 and puntajes[j - 1] > puntajes[j]:
+        # j mayor a cero
+        # Y puntajes de j - 1 MAYOR a puntaje de j
+        # Es decir, izq > der
+        # Swapeo (Vaso de agua y jugo + tercer vaso)
+        aux_p = puntajes[j]
+        puntajes[j] = puntajes[j - 1]
+        puntajes[j - 1] = aux_p
+
+        aux_d = dnis[j]
+        dnis[j] = dnis[j - 1]
+        dnis[j - 1] = aux_d
+
+        # Intercambian lugares
+
+        j = j - 1
+
+    if len(puntajes) > 5:
+        dnis.pop()
+        puntajes.pop()
+
+
+def mostrar_ranking(dnis, puntajes):
+    print("Ranking (mejores 5):")
+    for i in range(len(dnis)):
+        print(i + 1, "- DNI:", dnis[i], "- Intentos:", puntajes[i])
+        # i + 1 ya que el usuario va a tener que ver lenguaje humano
+        # Muestra los mejores 5
+
+def main():
+    dnis = []
+    puntajes = []
+    jugar_de_nuevo = "s"
+
+    while jugar_de_nuevo == "s":
+        secreto = randint(1000, 9999)
+        intentos = 0
+
+        intento = int(input("Adivina el numero secreto (4 cifras):"))
+        intentos += 1
+        while intento != secreto:
+            if intento > secreto:
+                print("El numero secreto es MENOR")
+            else:
+                print("El numero secreto es MAYOR")
+            intento = int(input("Adivina el numero secreto (4 cifras):"))
+            intentos += 1
+
+        print("Felicitaciones, lo adivinaste en", intentos, "intentos")
+
+        dni = int(input("Ingrese su DNI:"))
+        insertar_ranking(dnis, puntajes, dni, intentos)
+        mostrar_ranking(dnis, puntajes)
+
+        jugar_de_nuevo = input("Quiere jugar de nuevo? (s/n):")
+
+
+main()
