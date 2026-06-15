@@ -1,2 +1,38 @@
-def indicar_fecha(x, y, z):
-    
+# Funcion que reciba año, mes y año y devuelva si existe (Booleano)
+
+
+def indicar_fecha(dia, mes, anio):
+    '''Valida que la fecha sea valida y retorna por valor booleano'''
+    if mes < 1 or mes > 12:
+        es_valida = False
+    else:
+        # Verifico los dias del mes (Cantidad real)
+        dias_por_mes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        dias_en_mes = dias_por_mes[mes - 1]
+
+        if mes == 2 and ((anio % 4 == 0 and anio % 100 != 0) or (anio % 400 == 0)):
+            # Validando años bisiestos en febrero
+            dias_en_mes = 29
+            # Tiene 29 dias en vez de 28 (Caso muy especial)
+
+        if dia >= 1 and dia <= dias_en_mes:
+            es_valida = True
+        else:
+            es_valida = False
+
+    return es_valida
+
+
+def main():
+    '''Solicita dia, mes y año para retornar si es valida o no'''
+    dia = int(input("Ingrese el dia:"))
+    mes = int(input("Ingrese el mes:"))
+    anio = int(input("Ingrese el año:"))
+    resultado = indicar_fecha(dia, mes, anio)
+    if resultado:
+        print("La fecha ingresada es valida")
+    else:
+        print("La fecha ingresada NO es valida")
+
+
+main()
