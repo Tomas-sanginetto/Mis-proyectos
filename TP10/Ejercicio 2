@@ -1,0 +1,88 @@
+from random import randint
+
+
+def imprimir_matriz(matriz):
+    for f in range(len(matriz)):
+        for c in range(len(matriz[f])):
+            print("%5d" % matriz[f][c], end="")
+        print()
+
+
+# A) Crear matriz
+n = int(input("Ingrese cantidad de fabricas: "))
+
+matriz7 = []
+
+for f in range(n):
+    fila = []
+
+    for c in range(6):  # 6 dias: lunes a sabado
+        unidades = randint(0, 150)
+        fila.append(unidades)
+
+    matriz7.append(fila)
+
+print("Matriz de produccion:")
+imprimir_matriz(matriz7)
+
+
+# B)
+print("Total fabricado por cada fabrica:")
+
+for f in range(len(matriz7)):
+    total = 0
+
+    for c in range(len(matriz7[f])):
+        total += matriz7[f][c]
+
+    print("Fabrica", f + 1, ":", total)
+
+
+# C)
+mayor = matriz7[0][0]
+fabrica_mayor = 0
+dia_mayor = 0
+
+for f in range(len(matriz7)):
+    for c in range(len(matriz7[f])):
+        if matriz7[f][c] > mayor:
+            mayor = matriz7[f][c]
+            fabrica_mayor = f
+            dia_mayor = c
+
+dias = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"]
+
+print("La mayor produccion en un solo dia fue de", mayor)
+print("Fabrica:", fabrica_mayor + 1)
+print("Dia:", dias[dia_mayor])
+
+
+# D)
+mayor_dia = 0
+indice_dia_mayor = 0
+for c in range(6):
+    total_dia = 0
+    for f in range(len(matriz7)):
+        total_dia += matriz7[f][c]
+
+    if total_dia > mayor_dia:
+        mayor_dia = total_dia
+        indice_dia_mayor = c
+
+print("El dia mas productivo fue:", dias[indice_dia_mayor])
+print("Total producido ese dia:", mayor_dia)
+
+
+# E)
+minimos = []
+
+for f in range(len(matriz7)):
+    menor = matriz7[f][0]
+
+    for c in range(len(matriz7[f])):
+        if matriz7[f][c] < menor:
+            menor = matriz7[f][c]
+    minimos.append(menor)
+
+print("Menor cantidad fabricada por cada fabrica:")
+print(minimos)
