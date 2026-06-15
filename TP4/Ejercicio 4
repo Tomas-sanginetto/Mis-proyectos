@@ -1,0 +1,21 @@
+# Leer 10 numeros enteros e imprimir el mayor y en que orden fue ingresado
+mayor = 0
+posicion = 0
+
+for i in range(1, 11):
+    numero = int(input("Ingrese un numero entero: "))
+    print("Numero ingresado: ", numero)
+    if numero > mayor:
+        mayor = numero
+        posicion = i
+
+print("El numero mayor es: ", mayor, "y fue ingresado en la posicion:", posicion)
+
+# PSEUDOCODIGO
+
+# INICIO
+# Leer 10 numeros enteros
+# Comparar cada numero
+# Averiguar cual es el mayor
+# Mostrar el mayor
+# FIN
