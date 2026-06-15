@@ -1,0 +1,19 @@
+# Leer dos numeros naturales A y B. Calcular A (Elevado a B) mediante productos sucesivos
+# Mostrar el resultado (Ej; 4´3 = 4 * 4 * 4)
+
+num1 = int(input("Ingresar primer numero:"))
+num2 = int(input("Ingrese la potencia del numero anterior:"))
+
+resultado = num1
+for i in range(1, num2):
+    resultado = resultado * num1
+
+print("El resultado de la potencia es:", resultado)
+
+# PSEUDOCODIGO
+
+# INICIO
+# Leer dos numeros naturales A y B
+# Calcular A elevado a B mediante productos sucesivos
+# Mostrar el resultado
+# FIN
