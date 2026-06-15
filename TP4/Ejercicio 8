@@ -1,0 +1,31 @@
+# Programa que analice cuantos autos circulan con patente par e impar
+# Que permita ingresar la terminacion de la patente (0,9)
+# Informar cuantas se ingresaron con numeracion par e impar
+# Terminar el programa con -1
+
+pares = 0
+impares = 0
+
+patente = int(input("Ingrese la terminacion de la patente (0 - 9):"))
+while patente != -1:
+    while (patente < 0 or patente > 9) and patente != -1:
+        print("Solo se permiten valores del 0 al 9")
+        patente = int(input("Ingrese la terminacion de la patente (0 - 9):"))
+
+    if patente != -1:
+        if patente % 2 == 0:
+            pares = pares + 1
+        else:
+            impares = impares + 1
+        patente = int(input("Ingrese la terminacion de la patente (0 - 9):"))
+
+print("La cantidad de autos con patente par es de:", pares)
+print("Mientras que la cantidad de autos con patente impar es de:", impares)
+
+# PSEUDOCODIGO
+
+# INICIO
+# Ingresar la terminacion de la patente
+# Contar cuantas terminaciones pares e impares se ingresan
+# Mostrar la cantidad de terminaciones pares e impares
+# FIN
