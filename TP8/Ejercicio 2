@@ -1,0 +1,89 @@
+# Dada una lista de numeros, ordenarla utilizando los metodos de
+# seleccion, insercion y burbujeo
+# Que cambios habria que hacer para ordenarla de forma descendente?
+
+
+def ingresar_datos(n):
+    lista = []
+    for i in range(n):
+        valor = int(input("Ingrese un valor:"))
+        lista.append(valor)
+    return lista
+
+
+def copiar_lista(lista):
+    copia = []
+    for i in range(len(lista)):
+        copia.append(lista[i])
+    return copia
+# Para que los metodos de ordenamiento no modifiquen la lista ORIGINAL
+
+
+def ordenar_seleccion(lista):
+    for i in range(len(lista) - 1):
+        minimo = i
+        # Ponemos al primero, ya que igualmente va a ser el primer valor
+        for j in range(i + 1, len(lista)):
+            # i + 1 ya que compara con el siguiente al "Minimo"
+            if lista[j] < lista[minimo]:
+                minimo = j
+        # Swapeo con ayuda del auxiliar
+        # Intercambia lo que hay en la posicion original con la siguiente
+        # Ejemplo de los vasos (Agua y jugo)
+        aux = lista[i]
+        lista[i] = lista[minimo]
+        lista[minimo] = aux
+
+
+def ordenar_insercion(lista):
+    for i in range(1, len(lista)):
+        aux = lista[i]
+        j = i
+        while j > 0 and lista[j - 1] > aux:
+            # Mientras no lleguemos al principio de la lista
+            # Y el elemento de la izq > aux (Orden incorrecto)
+            lista[j] = lista[j - 1]
+            # Ocurre el swapeo (Intercambio de indices)
+            j = j - 1
+            # Nos movemos un lugar a la izq
+            lista[j] = aux
+
+
+def ordenar_burbuja(lista):
+    for i in range(len(lista) - 1):
+        for j in range(len(lista) - 1 - i):
+            # Se supone que i ya esta ordenada
+            if lista[j] > lista[j + 1]:
+                # Usamos el AUX para no pisar valores
+                aux = lista[j]
+                lista[j] = lista[j + 1]
+                lista[j + 1] = aux
+
+
+def main():
+    n = int(input("Ingrese la cantidad de numeros que quiere cargar en la lista:"))
+    lista = ingresar_datos(n)
+    print("La lista ingresada fue:", lista)
+
+    lista_seleccion = copiar_lista(lista)
+    ordenar_seleccion(lista_seleccion)
+    print("Ordenada por seleccion:", lista_seleccion)
+
+    lista_insercion = copiar_lista(lista)
+    ordenar_insercion(lista_insercion)
+    print("Ordenada por insercion:", lista_insercion)
+
+    lista_burbuja = copiar_lista(lista)
+    ordenar_burbuja(lista_burbuja)
+    print("Ordenada por burbuja:", lista_burbuja)
+
+    # Los 3 metodos van a dar siempre el mismo resultado
+
+    # Para ordenar de forma DESCENDENTE con cualquiera de los 3 metodos,
+    # alcanza con invertir las comparaciones (> por < y < por >):
+    # - en seleccion: buscar el MAXIMO en vez del minimo (lista[j] > lista[maximo])
+    # - en insercion: desplazar mientras lista[j-1] < aux
+    # - en burbuja: intercambiar cuando lista[j] < lista[j+1]
+
+
+main()
