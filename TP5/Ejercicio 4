@@ -1,0 +1,36 @@
+# Empresa factura el ultimo dia de cada mes
+# Si se paga dentro de los 10 primeros dias = Descuento de $120 o 2% (A eleccion)
+# Si se paga en LOS SIGUIENTES 10 DIAS = Pagar el importe original de la factura
+# Si se paga luego de esos 20 dias = +$150 o +10% (Lo que resulte mayor)
+# Programa que lea numeros de clientes y el total de la factura
+# Capaz de emitir msj donde muestre el numero del cliente y los tres importes que podra abonar segun la fecha
+
+num = int(input("Ingrese el numero del cliente:" ))
+factura = float(input("Ingrese el importe de la factura: $"))
+
+while factura < 1:
+    print("Ingrese un monto valido")
+    factura = float(input("Ingrese el importe de la factura: $"))
+
+importe_desc1 = factura - 120
+importe_desc2 = factura * 0.98
+
+if importe_desc1 < importe_desc2:
+    importe_descuento = importe_desc1
+else:
+    importe_descuento = importe_desc2
+
+importe_normal = factura
+
+importe_tarde1 = factura + 150
+importe_tarde2 = factura * 1.10
+
+if importe_tarde1 > importe_tarde2:
+    importe_tarde = importe_tarde1
+else:
+    importe_tarde = importe_tarde2
+
+print("Numero del cliente:", num)
+print("En caso de que la factura se abone en los primeros 10 dias del mes, el monto a abonar sera: $", importe_descuento)
+print("En caso de que la factura se abone entre el dia 11 y 20 inclusive, se abonara el importe original: $", importe_normal)
+print("En caso de que se abone entre el dia 21 hasta fin de mes, el monto a abonar sera: $", importe_tarde)
