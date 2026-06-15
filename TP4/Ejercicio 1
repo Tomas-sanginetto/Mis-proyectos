@@ -1,0 +1,9 @@
+# Escribir algoritmo que muestre los primeros 25 numeros naturales
+
+for i in range(1, 26):
+    print(i)
+
+# PSEUDOCODIGO
+# INICIO
+# Mostrar los primeros 25 numeros naturales
+# FIN
