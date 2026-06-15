@@ -1,29 +1,30 @@
 def obtener_mes_en_texto(a):
     if a == 1:
-        print("Enero")
+        return"Enero"
     elif a == 2:
-        print("Febrero")
+        return"Febrero"
     elif a == 3:
-        print("Marzo")
+        return"Marzo"
     elif a == 4:
-        print("Abril")
+        return"Abril"
     elif a == 5:
-        print("Mayo")
+        return"Mayo"
     elif a == 6:
-        print("Junio")
+        return"Junio"
     elif a == 7:
-        print("Julio")
+        return"Julio"
     elif a == 8:
-        print("Agosto")
+        return"Agosto"
     elif a == 9:
-        print("Septiembre")
+        return"Septiembre"
     elif a == 10:
-        print("Octubre")
+        return"Octubre"
     elif a == 11:
-        print("Noviembre")
+        return"Noviembre"
     elif a == 12:
-        print("Diciembre")
-    return a
+        return"Diciembre"
+    else:
+        return ""
 
 
 def main():
@@ -32,5 +33,7 @@ def main():
         print("Numero de mes invalido, intente denuevo")
         mes = int(input("Ingrese el numero:"))
     resultado = obtener_mes_en_texto(mes)
+    print("El resultado es:", resultado)
+
 
 main()
