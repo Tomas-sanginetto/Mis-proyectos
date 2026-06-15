@@ -1,0 +1,35 @@
+# Programa que lea numeros enteros hasta que se ingrese un cero
+# Mostrar el maximo, el minimo y el promedio de todos ellos
+
+cant_num = 0
+total = 0
+
+num = int(input("Ingrese un numero entero: "))
+mayor = num
+menor = num
+
+while num != 0:
+    if num > mayor:
+        mayor = num
+    if num < menor:
+        menor = num
+    total = total + num
+    cant_num += 1
+    num = int(input("Ingrese un numero entero: "))
+
+if cant_num == 0:
+    print("No ingresaste ningun numero")
+else:
+    promedio = total / cant_num
+    print("El numero mayor ingresado fue el:", mayor)
+    print("El numero menor ingresado fue el:", menor)
+    print("El promedio entre todos los numeros es:", promedio)
+
+# PSEUDOCODIGO
+
+# INICIO
+# Leer numeros enteros hasta que se ingrese un cero
+# Comparar cada numero para saber cual es el mayor y el menor
+# Sumar todos los numeros para luego calcular el promedio
+# Mostrar el mayor, el menor y el promedio
+# FIN
