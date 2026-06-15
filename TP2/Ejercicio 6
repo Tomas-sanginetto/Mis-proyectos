@@ -1,0 +1,36 @@
+# Programa que dado el valor de una hora de trabajo y la cantidad de horas trabajadas por dia
+# Muestre el valor del sueldo semanal (Todos los dias y los sabados media jornada)
+
+
+valor_hr = int(input("Ingrese el valor de la hora de trabajo: $"))
+horas_lunes = int(input("Ingrese la cantidad de horas trabajadas (Lunes):"))
+horas_martes = int(input("Ingrese la cantidad de horas trabajadas (Martes):"))
+horas_miercoles = int(input("Ingrese la cantidad de horas trabajadas (Miercoles):"))
+horas_jueves = int(input("Ingrese la cantidad de horas trabajadas (Jueves):"))
+horas_viernes = int(input("Ingrese la cantidad de horas trabajadas (Viernes):"))
+horas_sabado = int(input("Ingrese la cantidad de horas trabajadas (Sabado):"))
+
+while valor_hr <= 0 or horas_lunes <= 0 or horas_martes <= 0 or horas_miercoles <= 0 or horas_jueves <= 0 or horas_viernes <= 0 or horas_sabado <= 0:
+    print("Alguno de los datos ingresados son invalidos, intentelo denuevo")
+    valor_hr = int(input("Ingrese el valor de la hora de trabajo: $"))
+    horas_lunes = int(input("Ingrese la cantidad de horas trabajadas (Lunes):"))
+    horas_martes = int(input("Ingrese la cantidad de horas trabajadas (Martes):"))
+    horas_miercoles = int(input("Ingrese la cantidad de horas trabajadas (Miercoles):"))
+    horas_jueves = int(input("Ingrese la cantidad de horas trabajadas (Jueves):"))
+    horas_viernes = int(input("Ingrese la cantidad de horas trabajadas (Viernes):"))
+    horas_sabado = int(input("Ingrese la cantidad de horas trabajadas (Sabado):"))
+
+sueldoSemanal = (horas_lunes + horas_martes + horas_miercoles + horas_jueves + horas_viernes + horas_sabado) * valor_hr
+
+print("El sueldo semanal es: $", sueldoSemanal)
+
+
+# PSEUDOCODIGO
+# INICIO
+# Ingresar el valor de la hora de trabajo
+# Ingresar la cantidad de horas trabajadas por día
+# Calcular las horas de media jornada (horasPorDia / 2)
+# Calcular las horas totales (horasPorDia * 5 días + media jornada del sábado)
+# Calcular el sueldo semanal (horasTotales * valorHora)
+# Imprimir el sueldo semanal
+# FIN
