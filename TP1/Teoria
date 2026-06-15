@@ -1,0 +1,64 @@
+Responder las siguientes preguntas:
+
+a) ¿Cuáles son los componentes hardware básicos?
+
+El hardware es todo lo físico de la computadora, lo que se puede tocar. Los componentes básicos son:
+
+CPU (procesador): es el "cerebro", el que hace todos los cálculos y ejecuta las instrucciones
+Memoria RAM: guarda de forma temporal los datos que se están usando en el momento (se borra al apagar la compu)
+Almacenamiento (disco duro o SSD): guarda la información de forma permanente (archivos, programas)
+Dispositivos de entrada: como el teclado y el mouse, sirven para ingresar información o darle ordenes a la computadora
+Dispositivos de salida: como el monitor o la impresora, muestran o entregan el resultado al usuario
+
+b) ¿Qué es el software? ¿A qué llamamos programa de aplicación?
+
+El software es todo lo que no se puede tocar: son los programas, instrucciones y datos que le dicen al hardware que tiene
+que hacer
+Sin software, la computadora es solo un monton de partes fisicas sin uso
+Un programa de aplicacion es un software hecho para que el usuario haga una tarea especifica.
+
+c) ¿Qué es una instrucción?
+
+Una instrucción es una orden simple y concreta que le damos a la computadora para que haga una accion puntual
+Como por ejemplo "sumar dos numeros" o "mostrar un mensaje en pantalla". Un programa es basicamente una serie de instrucciones puestas en orden
+
+d) ¿Cuál es el proceso básico para crear un programa? Definición de algoritmo, describí las características
+
+El proceso basico para crear un programa es:
+
+Entender bien el problema que hay que resolver
+Diseñar el algoritmo (pensar los pasos para resolverlo)
+Escribir ese algoritmo en un lenguaje de programacion
+Probarlo y corregir errores si los hay
+
+Un algoritmo es una secuencia ordenada y finita de pasos que sirven para resolver un problema o realizar una tarea
+Características de un algoritmo:
+
+Finito: tiene una cantidad limitada de pasos, en algun momento termina
+Preciso: cada paso esta bien definido, sin ambigüedades, todos lo entienden igual
+Ordenado: los pasos se siguen en una secuencia, uno despues del otro
+Tiene entrada y salida: recibe algun dato para trabajar y entrega un resultado al final
+
+e) ¿Qué es un lenguaje de programación?
+
+Es un conjunto de palabras, simbolos y reglas que usamos para escribirle instrucciones a la computadora,
+de una forma que sea entendible tanto para nosotros (las personas) como para la maquina, a traves de un traductor (compilador o interprete)
+
+f) ¿Qué significa Lenguaje Máquina?
+
+Es el lenguaje compuesto solo por 0 y 1 (codigo binario) que la computadora entiende y ejecuta directamente, sin necesidad de ninguna traduccion
+Es el unico "idioma" que el hardware comprende de forma nativa
+
+g) ¿Qué es un compilador? Diferencia con un intérprete
+
+Un compilador es un programa que traduce todo el codigo fuente de una sola vez a lenguaje maquina, generando un archivo ejecutable que despues se puede correr
+
+Un interprete, en cambio, traduce y ejecuta el codigo linea por linea, a medida que el programa se va ejecutando, sin generar un archivo aparte. Python usa un interprete
+
+h) ¿Qué es un entorno de programación? ¿Qué es Python?
+
+Un entorno de programacion es el conjunto de herramientas que usamos para escribir, probar y ejecutar programas: un editor de texto, el compilador
+o interprete, herramientas para encontrar errores, etc.
+
+Python es un lenguaje de programacion interpretado (no necesita compilarse antes de ejecutarse),
+de facil lectura y muy usado tanto por principiantes como en proyectos profesionales
