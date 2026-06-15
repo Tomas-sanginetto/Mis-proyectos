@@ -1,0 +1,30 @@
+# Costo basico de libro $125 , + 2,20 por pagina por encuadernacion rustica
+# + de 300 paginas, el costo es de $80 extra
+# + de 600,  el costo es de $136 extra
+# Dado el numero de paginas desarrollar programa que calcule el valor del libro
+
+valor = 0
+
+paginas = int(input("Ingrese la cantiada de paginas:"))
+
+while paginas <= 0:
+    print("Cantidad de paginas invalida, intentelo de nuevo")
+    paginas = int(input("Ingrese la cantiada de paginas:"))
+
+if paginas >= 600:
+    valor = (paginas * 2.20) + 261
+elif paginas < 600 and paginas >= 300:
+    valor = (paginas * 2.20) + 205
+elif paginas < 300:
+    valor = (paginas * 2.20) + 125
+
+print("Tu libro de", paginas, "paginas, tiene un costo de $", valor)
+
+# PSEUDOCODIGO
+
+# INICIO
+# LEER CANTIDADA DE PAGINAS INGRESADAS
+# COMPROBAR QUE LA CANTIDAD DE PAGINAS SEA MAYOR A 0
+# CALCULAR EL VALOR DEL LIBRO EN BASE A LA CANTIDAD DE PAGINAS
+# MOSTRAR EL VALOR DEL LIBRO
+# FIN
