@@ -1,0 +1,23 @@
+# Ingresar la edad de dos hermanos e indicar quien es el mayor o si son mellizos
+
+hermano1 = int(input("Ingresar la edad del primer hermano:"))
+hermano2 = int(input("Ingresar la edad del segundo hermano:"))
+
+if hermano1 > hermano2:
+    print("El primer hermano es mayor que el segundo")
+elif hermano1 < hermano2:
+    print("El segundo hermano es mayor que el primero")
+else:
+    print("Son mellizos")
+
+# PSEUDOCODIGO
+
+# INICIO
+# Ingresar edadHermano1
+# Ingresar edadHermano2
+# Comparar si edadHermano1 es mayor que edadHermano2
+# Mostrar "El hermano 1 es mayor" si la comparación es verdadera
+# Comparar si edadHermano2 es mayor que edadHermano1
+# Mostrar "El hermano 2 es mayor" si la comparación es verdadera
+# Mostrar "Son mellizos" si las edades son iguales
+# FIN
