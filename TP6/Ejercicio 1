@@ -1,0 +1,20 @@
+# Crear una lista con N numeros al azar en un rango de valores que se recibe por parametro
+# Mostrar la lista creada
+# Utilizar la lista para resolver los siguiente ejercicios
+
+n = int(input("Ingrese la cantidad de numeros al azar que quieres que tenga tu lista:"))
+minimo = int(input("Ingrese el valor minimo del parametro de numeros a generar:"))
+maximo = int(input("Ingrese el valor maximo del parametro de numeros a generar:"))
+while minimo > maximo:
+    print("El minimo no puede ser mayor que el maximo, intente nuevamente")
+    minimo = int(input("Ingrese el valor minimo del parametro de numeros a generar:"))
+    maximo = int(input("Ingrese el valor maximo del parametro de numeros a generar:"))
+
+
+def crear_lista(minimo,maximo):
+    import random
+    lista = [random.randint(minimo, maximo) for i in range(n)]
+    return lista
+
+
+print("Tu lista creada con valores al azar fue:", crear_lista(minimo, maximo))
