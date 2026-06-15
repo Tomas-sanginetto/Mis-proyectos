@@ -1,23 +1,50 @@
 # Funcion que devuelva el reverso de un numero recibido por parametro
 
-#====================================================================
-#                           INCOMPLETO
-#====================================================================
+
+def reverso_con_funciones(num):
+    '''Valida si el numero es negativo y genera su reverso'''
+    es_negativo = num < 0
+    if es_negativo:
+        num_positivo = -num
+    else:
+        num_positivo = num
+
+    texto = str(num_positivo)
+    texto_invertido = texto[::-1] # Recorre de derecha a izquierda con el paso invertido (slicing)
+    resultado = int(texto_invertido)
+
+    if es_negativo:
+        resultado = -resultado
+    return resultado
 
 
-def calcular_reverso(a):
+def reverso_sin_funciones(num):
+    '''Valida si el numero es negativo y genero su reverso'''
+    # Lo siguiente para trabajar siempre con el num positivo, luego se le agrega el signo
+    es_negativo = num < 0 # Valor Booleano
+    if es_negativo:
+        num_positivo = -num
+    else:
+        num_positivo = num
 
-    a = str(a)
-    resultado = ""
-    for num in a, -1:
-        resultado = resultado + num
+    resultado = 0
+    while num_positivo > 0:
+        digito = num_positivo % 10 # Me da el ultimo digito 
+        resultado = resultado * 10 + digito
+        num_positivo = num_positivo // 10 # Descarta el ultimo digito que ya use 
+
+    if es_negativo:
+        resultado = -resultado
     return resultado
 
 
 def main():
+    '''Pide un numero para mostrar su reverso'''
     num = int(input("Ingrese un numero para mostrar su reverso:"))
-    resultado = calcular_reverso(num)
-    print("El reverso de tu numero es:", resultado)
+    resultado1 = reverso_con_funciones(num)
+    resultado2 = reverso_sin_funciones(num)
+    print("El reverso de tu numero (con funciones de Python) es:", resultado1)
+    print("El reverso de tu numero (sin funciones de Python) es:", resultado2)
 
 
 main()
