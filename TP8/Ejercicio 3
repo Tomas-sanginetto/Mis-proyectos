@@ -1,0 +1,68 @@
+# Cargar una lista de N elementos sin valores repetidos, ordenarla
+# y luego realizar busquedas binarias hasta que el usuario ingrese -1.
+# Informar al final cuantas busquedas fueron exitosas.
+
+
+def ingresar_datos_sin_repetidos(n):
+    lista = []
+    for i in range(n):
+        valor = int(input("Ingrese un valor:"))
+        while valor in lista:
+            print("Ese valor ya fue ingresado, ingrese otro:")
+            valor = int(input("Ingrese un valor:"))
+        lista.append(valor)
+    return lista
+
+
+def ordenar_burbuja(lista):
+    for i in range(len(lista) - 1):
+        for j in range(len(lista) - 1 - i):
+            if lista[j] > lista[j + 1]:
+                aux = lista[j]
+                lista[j] = lista[j + 1]
+                lista[j + 1] = aux
+
+
+def busqueda_binaria(lista, valor):
+    primer_indice = 0
+    ultimo_indice = len(lista) - 1
+    posicion = -1  # Asumiendo "No encontrado"
+    while primer_indice <= ultimo_indice and posicion == -1:
+        # Valida que el ultimo indice siempre sea mayor al primero
+        medio = (primer_indice + ultimo_indice) // 2
+        # Si da IMPAR se redondea hacia abajo
+        if lista[medio] == valor:
+            posicion = medio
+            # Si el valor buscado es justo el medio, esa va a ser la posicion
+        elif lista[medio] < valor:
+            primer_indice = medio + 1
+            # Si medio < valor a encontrar, descarta el valor medio y todo lo de debajo
+        else:
+            ultimo_indice = medio - 1
+            # Si no cumplio lo anterior solo queda que medio > valor
+            # Igualmente la lista va a estar ordenada, pero sirve (Por las dudas)
+    return posicion
+    # Si no se encuentra en la lista vamos a retornar -1
+
+
+def main():
+    n = int(input("Ingrese la cantidad de numeros que quiere cargar en la lista:"))
+    lista = ingresar_datos_sin_repetidos(n)
+    ordenar_burbuja(lista)
+    print("La lista ordenada quedo:", lista)
+
+    exitosas = 0
+    valor = int(input("Ingrese un valor a buscar (-1 para terminar):"))
+    while valor != -1:
+        posicion = busqueda_binaria(lista, valor)
+        if posicion == -1:
+            print("El valor", valor, "no se encuentra en la lista")
+        else:
+            print("El valor", valor, "se encuentra en la posicion", posicion + 1)
+            exitosas += 1
+        valor = int(input("Ingrese un valor a buscar (-1 para terminar):"))
+
+    print("Cantidad de busquedas exitosas:", exitosas)
+
+
+main()
