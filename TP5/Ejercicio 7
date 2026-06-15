@@ -1,0 +1,63 @@
+# N empleados dividos en categorias A,B,C, por cada empleado se lee legajo, categoria y salario
+# Informe: Importe total de salarios pagados por la empresa
+            #  Cantidad de empleados que ganan mas de $20.000
+            #  Cantidad de empleados que ganan menos de $5.000 cuya categoria sea C
+            #  Legajo del empleado que mas gana
+            #  Sueldo mas bajo
+            #  Importe total de sueldos por cada categoria
+            #  Salario promedio
+
+importe_a = 0
+importe_b = 0
+importe_c = 0
+legajo_mayor = 0
+mayor = 0
+menor = float('inf') # Indica infinito, asi cualquier numero va a ser menor que la variable y se puede tomar como parametro
+mayor20 = 0
+menor5_c = 0
+importe_total = 0
+
+empleados = int(input("Ingrese la cantidad de empleados:"))
+for i in range(1, empleados + 1):
+    legajo = int(input("Ingrese su legajo:"))
+    categoria = input("Ingrese su categoria (A,B,C):")
+    while categoria != "A" and categoria != "B" and categoria != "C":
+        print("Solo se admiten caracteres A,B y C")
+
+        categoria = input("Ingrese su categoria (A,B,C):")
+    salario = float(input("Ingrese su salario:"))
+
+    importe_total = importe_total + salario
+
+    if categoria == "A":
+        importe_a = importe_a + salario
+    elif categoria == "B":
+        importe_b = importe_b + salario
+    elif categoria == "C":
+        importe_c = importe_c + salario
+
+    if salario > mayor:
+        mayor = salario
+        legajo_mayor = legajo
+
+    if salario < menor:
+
+        menor = salario
+
+    if salario > 20000:
+
+        mayor20 = mayor20 + 1
+
+    if salario < 5000 and categoria == "C":
+
+        menor5_c = menor5_c + 1
+
+print("Salario promedio:", importe_total / empleados)
+print("Importe total categoria A:", importe_a)
+print("Importe total categoria B:", importe_b)
+print("Importe total categoria C:", importe_c)
+print("Importe total empresa:", importe_total)
+print("Empleados que cobran mas de $20.000:", mayor20)
+print("Empleados menores a $5.000 categoria C:", menor5_c)
+print("Legajo del que mas gana:", legajo_mayor)
+print("Sueldo mas bajo:", menor)
