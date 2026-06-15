@@ -1,0 +1,68 @@
+# Programa que calcule y muestre el sueldo neto de un empleado en base a su sueldo basico y antiguedad (años)
+# S = +5% de salario bruto por cada año de antiguedad
+# C = +7% de salario bruto por cada año de antiguedad
+# Descuentos = Jubilacion 11% ; Obra social 3% ; Sindicato 3%
+sueldoNeto = 0
+
+sueldoBasico = float(input("Ingrese su sueldo basico: $"))
+antiguedad = int(input("Ingrese su antiguedad (En años):"))
+estadoCivil = input("Ingrese su estado civil (S/C):")
+
+while sueldoBasico <= 0:
+    print("Sueldo no valido, intentelo nuevamente!")
+    sueldoBasico = float(input("Ingrese su sueldo basico: $"))
+
+while antiguedad < 0:
+    print("Antiguedad invalida, intentelo denuevo")
+    antiguedad = int(input("Ingrese su antiguedad (En años):"))
+
+while estadoCivil != "C" and estadoCivil != "S":
+    print("Ingrese bien el estado civil, intente otra vez")
+    estadoCivil = input("Ingrese su estado civil (S/C):")
+
+if estadoCivil == "S":
+    sueldoNeto = sueldoBasico + (sueldoBasico * 0.05 * antiguedad)
+    sueldoNeto = sueldoNeto * 0.89
+    sueldoNeto = sueldoNeto * 0.97
+    sueldoNeto = sueldoNeto * 0.97
+else:
+    sueldoNeto = sueldoBasico + (sueldoBasico * 0.07 * antiguedad)
+    sueldoNeto = sueldoNeto * 0.89
+    sueldoNeto = sueldoNeto * 0.97
+    sueldoNeto = sueldoNeto * 0.97
+
+print("Su sueldo neto es: $", sueldoNeto) 
+
+# PSEUDOCODIGO
+
+# INICIO
+# Inicializar sueldoNeto en 0
+# Ingresar sueldoBasico
+# Ingresar antiguedad
+# Ingresar estadoCivil
+# Comparar si sueldoBasico es menor o igual a 0
+# Mostrar "Sueldo no válido, inténtelo nuevamente" si la comparación es verdadera
+# Ingresar sueldoBasico mientras sueldoBasico sea menor o igual a 0
+# Comparar si antiguedad es menor a 0
+# Mostrar "Antigüedad inválida, inténtelo nuevamente" si la comparación es verdadera
+# Ingresar antiguedad mientras antiguedad sea menor a 0
+# Comparar si estadoCivil es distinto de "C" y distinto de "S"
+# Mostrar "Ingrese bien el estado civil" si la comparación es verdadera
+# Ingresar estadoCivil mientras estadoCivil sea distinto de "C" y distinto de "S"
+# Comparar si estadoCivil es igual a "S"
+# Calcular aumento multiplicando sueldoBasico por 0.05 y por antiguedad
+# Sumar aumento a sueldoBasico si la comparación es verdadera
+# Calcular descuento multiplicando sueldoBasico por 0.17
+# Restar descuento al sueldoBasico si la comparación es verdadera
+# Multiplicar sueldoNeto por 0.89 si la comparación es verdadera
+# Multiplicar sueldoNeto por 0.97 si la comparación es verdadera
+# Multiplicar sueldoNeto por 0.97 si la comparación es verdadera
+# Calcular aumento multiplicando sueldoBasico por 0.07 y por antiguedad si estadoCivil es igual a "C"
+# Sumar aumento a sueldoBasico si la comparación es verdadera
+# Calcular descuento multiplicando sueldoBasico por 0.17 si estadoCivil es igual a "C"
+# Restar descuento al sueldoBasico si la comparación es verdadera
+# Multiplicar sueldoNeto por 0.89 si estadoCivil es igual a "C"
+# Multiplicar sueldoNeto por 0.97 si estadoCivil es igual a "C"
+# Multiplicar sueldoNeto por 0.97 si estadoCivil es igual a "C"
+# Mostrar sueldoNeto
+# FIN
