@@ -1,0 +1,39 @@
+# $150 la primer hora y $90 cada hora adicional
+# Si el cliente esta 5 hrs o mas se le cobra una estadia de precio fijo $350
+# Programa que permita ingresar hr de ingreso y de salida y calcule el precio a pagar
+# El estacionamiento cierra a las 12hs y no puede quedar el auto dentro del estacionamiento
+
+# FINALIZAR CON -1 en hora de ingreso
+# Informar cuantas estadias se informaron
+
+estadias_totales = 0
+
+ingreso = int(input("Ingrese la hora de ingreso (entre 0 y 11, -1 para finalizar):"))
+
+while ingreso != -1:
+
+    while ingreso < 0 or ingreso > 11:
+        print("Hora invalida, debe ingresar entre las 0 y las 11 (el estacionamiento cierra a las 12)")
+        ingreso = int(input("Ingrese la hora de ingreso (entre 0 y 11, -1 para finalizar):"))
+
+    salida = int(input("Ingrese la hora de salida (entre 1 y 12):"))
+
+    while salida <= ingreso or salida > 12:
+        print("Hora invalida, debe ser mayor a la hora de ingreso y como maximo 12")
+        salida = int(input("Ingrese la hora de salida (entre 1 y 12):"))
+
+    horas = salida - ingreso
+
+    if horas >= 5:
+        precio = 350
+    else:
+        precio = 150 + (horas - 1) * 90
+
+    print("El precio a pagar es: $", precio)
+
+    estadias_totales += 1
+
+    ingreso = int(input("Ingrese la hora de ingreso (entre 0 y 11, -1 para finalizar):"))
+
+
+print("Se registraron", estadias_totales, "estadias en total")
