@@ -1,0 +1,30 @@
+# Cortinas de baño colores: verde, blanco y azul
+# Escribir programa que permita ingresar cuantas se fabricaron de cada color
+# Informar el % que fabrico en cada uno de ellos
+
+cverdes = int(input("Ingrese cuantas cortinas verdes fabrico:"))
+cblancas = int(input("Ingrese cuantas cortinas blancas fabrico:"))
+cazules = int(input("Ingrese cuantas cortinas azules fabrico:"))
+
+total_cortinas = cverdes + cblancas + cazules
+print("Total de cortinas fabricadas:", total_cortinas)
+
+porcentaje_verdes = (cverdes / total_cortinas) * 100
+porcentaje_blancas = (cblancas / total_cortinas) * 100
+porcentaje_azules = (cazules / total_cortinas) * 100
+
+print("El porcentaje de cortinas verdes es:", porcentaje_verdes , "%")
+print("El porcentaje de cortinas blancas es:", porcentaje_blancas, "%")
+print("El porcentaje de cortinas azules es:", porcentaje_azules, "%")
+
+# PSEUDOCODIGO
+# INICIO
+# Ingresar la cantidad de cortinas verdes fabricadas
+# Ingresar la cantidad de cortinas blancas fabricadas
+# Ingresar la cantidad de cortinas azules fabricadas
+# Calcular el total sumando los tres colores
+# Calcular el porcentaje de cortinas verdes (cantVerdes * 100 / total)
+# Calcular el porcentaje de cortinas blancas (cantBlancas * 100 / total)
+# Calcular el porcentaje de cortinas azules (cantAzules * 100 / total)
+# Imprimir el porcentaje de cada color de cortina
+# FIN
