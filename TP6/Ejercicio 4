@@ -1,0 +1,41 @@
+# Mostrar el valor minimo con su posicion de la lista creada
+
+import random
+
+
+def crear_lista(minimo, maximo, n):
+    return [random.randint(minimo, maximo) for i in range(n)]
+
+
+def valor_minimo(lista):
+    menor = float("inf")
+    for i in range(len(lista)):
+        if lista[i] < menor:
+            menor = lista[i]
+
+    posiciones = []
+    for i in range(len(lista)):
+        if lista[i] == menor:
+            posiciones.append(i)
+
+    return menor, posiciones
+
+def main():
+    n = int(input("Ingrese la cantidad de numeros al azar que quieres que tenga tu lista:"))
+    minimo = int(input("Ingrese el valor minimo del parametro de numeros a generar:"))
+    maximo = int(input("Ingrese el valor maximo del parametro de numeros a generar:"))
+
+    while minimo > maximo:
+        print("El minimo no puede ser mayor que el maximo, intente nuevamente")
+        minimo = int(input("Ingrese el valor minimo del parametro de numeros a generar:"))
+        maximo = int(input("Ingrese el valor maximo del parametro de numeros a generar:"))
+
+    lista = crear_lista(minimo, maximo, n)
+    print("Lista original:", lista)
+
+    menor, posiciones = valor_minimo(lista)
+    print("El valor minimo es:", menor)
+    print("Aparece en las posiciones:", posiciones)
+
+
+main()
