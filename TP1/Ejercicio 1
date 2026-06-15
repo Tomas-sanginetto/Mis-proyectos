@@ -1,1 +1,24 @@
 
+# Diseñar algoritmo con acciones de la vida cotidiana, Indicamos estado inicial y estado final
+# Usamos verbos en infinitivo y cada oracion realiza una solaccion on realiza una toma de decision
+
+# Preparar un mate
+# Estado inicial: Tengo un mate, agua caliente, yerba y una bombilla
+# Estado final: Tengo un mate listo para tomar
+
+# 1. Verificar que tengo un mate, agua caliente, yerba y una bombilla
+# 2. Comprar algun elemento en caso de que me falte
+# 3. Abrir paquete de yerba
+# 4. Colocar yerba en el mate hasta 3/4 de su capacidad
+# 5. Abrir la tapa de la pava
+# 6. Abrir la canilla del agua
+# 7. Llenar la pava con agua
+# 8. Cerrar la tapa de la pava
+# 9. Calentar el agua en la pava hasta que hierva
+# 10. Acomodar la yerba del mate
+# 11. Abrir la tapa de la pava nuevamente para poder verter el agua
+# 12. Verter el agua dentro del mate
+# 13. Dejar reposar el mate por unos minutos a unos 45 grados para que se hidrate la yerba
+# 14. Insertar la bombilla en el mate
+# 15. Verter agua nuevamente en el mate
+# 16. Tomar mate
