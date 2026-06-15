@@ -1,0 +1,18 @@
+# Leer un numero entero e imprimir un mensaje indicando si es par o impar
+
+num = int(input("Ingrese un numero entero:"))
+
+if num % 2 == 0:
+    print("Tu numero es par")
+else:
+    print("Tu numero es impar")
+
+# PSEUDOCODIGO
+
+# INICIO
+# Ingresar numero
+# Calcular resto de numero dividido 2
+# Comparar si resto es igual a 0
+# Mostrar "El número es par" si la comparación es verdadera
+# Mostrar "El número es impar" si la comparación es falsa
+# FIN
