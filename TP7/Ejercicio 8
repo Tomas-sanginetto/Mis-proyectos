@@ -1,13 +1,25 @@
-def definir_bisiesto(a):
-    if a % 4 == 0 and a % 400 == 0:
-        print("Tu año es bisiesto")
+# Funcion que reciba un año y devuelva por Retun si es bisiesto o no
+
+
+def definir_bisiesto(anio):
+    '''Verifica si el año es bisiesto y lo retorna por valor booleano'''
+    if anio % 4 == 0 and anio % 100 != 0:
+        es_bisiesto = True
+    elif anio % 400 == 0:
+        es_bisiesto = True
     else:
-        print("Tu año NO es bisiesto")
+        es_bisiesto = False
+    return es_bisiesto
 
 
 def main():
-    año = int(input("Ingrese cualquier año:"))
-    definir_bisiesto(año)
+    '''Pide al usuario un año y le dice si es bisiesto o no'''
+    anio = int(input("Ingrese cualquier año:"))
+    resultado = definir_bisiesto(anio)
+    if resultado:
+        print("Tu año es bisiesto")
+    else:
+        print("Tu año NO es bisiesto")
 
 
 main()
