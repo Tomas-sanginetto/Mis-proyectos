@@ -1,1 +1,35 @@
+# Obtener el digito central de un numero ENTERO pasado por parametro
+# Solo si la cantidad de digitos es IMPAR
+# Si la longitud fuera PAR devolver -1
 
+
+def digito_central(numero):
+    es_negativo = numero < 0
+    if es_negativo:
+        numero_positivo = -numero
+    else:
+        numero_positivo = numero
+
+    texto = str(numero_positivo)
+    cantidad_digitos = len(texto)
+
+    if cantidad_digitos % 2 == 0:
+        resultado = -1
+    else:
+        posicion_central = cantidad_digitos // 2
+        digito_texto = texto[posicion_central]
+        resultado = int(digito_texto)
+
+    return resultado
+
+
+def main():
+    numero = int(input("Ingrese un numero entero:"))
+    resultado = digito_central(numero)
+    if resultado == -1:
+        print("El numero tiene una cantidad par de digitos, no tiene digito central")
+    else:
+        print("El digito central de tu numero es:", resultado)
+
+
+main()
