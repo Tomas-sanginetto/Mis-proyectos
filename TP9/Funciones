@@ -1,0 +1,149 @@
+from random import randint
+
+STOCK_MINIMO = 5
+
+
+def menu():
+    print("=" * 40)
+    print("CONTROL DE INVENTARIO - BICICLETAS")
+    print("1. Alta de producto")
+    print("2. Modificar cantidad en stock")
+    print("3. Informes")
+    print("4. Búsqueda de producto")
+    print("5. Salir")
+    print("=" * 40)
+
+
+def menu_informes():
+    print("1. Listado de productos")
+    print("2. Stock minimo")
+    print("3. Stock maximo")
+    print("4. Volver")
+
+
+def ingresar_codigo(mensaje):
+    codigo = int(input(mensaje))
+
+    while codigo <= 0:
+        print("El codigo debe ser positivo.")
+        codigo = int(input(mensaje))
+
+    return codigo
+
+
+def codigo_existe(codigo, codigos):
+    for i in range(len(codigos)):
+        if codigos[i] == codigo:
+            return True
+    return False
+
+
+def buscar_indice(codigo, codigos):
+    for i in range(len(codigos)):
+        if codigos[i] == codigo:
+            return i
+    return -1
+
+
+def alta_producto(codigos, nombres, stocks):
+
+    codigo = ingresar_codigo("Ingrese codigo del producto: ")
+
+    while codigo_existe(codigo, codigos):
+        print("Codigo repetido. Ingrese otro codigo.")
+        codigo = ingresar_codigo("Ingrese codigo del producto: ")
+
+    nombre = input("Ingrese descripcion del producto: ")
+
+    stock = randint(1, 50)
+
+    codigos.append(codigo)
+    nombres.append(nombre)
+    stocks.append(stock)
+
+    print("Producto cargado con exito.")
+    print("Stock generado:", stock)
+
+
+def modificar_stock(codigos, stocks):
+
+    if len(codigos) == 0:
+        print("No hay productos cargados")
+        return
+
+    codigo = ingresar_codigo("Ingrese codigo del producto: ")
+    indice = buscar_indice(codigo, codigos)
+    if indice == -1:
+        print("Producto no encontrado")
+    else:
+        cambio = int(input("Ingrese cantidad a agregar o quitar: "))
+        while stocks[indice] + cambio < 0:
+            print("El stock no puede quedar negativo")
+            cambio = int(input("Ingrese cantidad a agregar o quitar: "))
+        stocks[indice] += cambio
+        print("Stock modificado con exito")
+        print("Nuevo stock:", stocks[indice])
+
+
+def ordenar_por_codigo(codigos, nombres, stocks):
+
+    for i in range(len(codigos)-1):
+        for j in range(len(codigos)-1-i):
+
+            if codigos[j] > codigos[j+1]:
+
+                codigos[j], codigos[j+1] = codigos[j+1], codigos[j]
+                nombres[j], nombres[j+1] = nombres[j+1], nombres[j]
+                stocks[j], stocks[j+1] = stocks[j+1], stocks[j]
+
+
+def listado_productos(codigos, nombres, stocks):
+    ordenar_por_codigo(codigos, nombres, stocks)
+    print("Codigo     Nombre     Cantidad")
+    for i in range(len(codigos)):
+        print(codigos[i], nombres[i], stocks[i])
+
+
+def stock_minimo(codigos, stocks):
+    faltantes = 0
+    print("Productos debajo del stock minimo:")
+    for i in range(len(codigos)):
+        if stocks[i] < STOCK_MINIMO:
+            print("Codigo:", codigos[i], "Stock:", stocks[i])
+            faltantes += STOCK_MINIMO - stocks[i]
+    print("Total general de unidades faltantes:", faltantes)
+
+
+def stock_maximo(codigos, stocks):
+    if len(stocks) == 0:
+        print("No hay productos cargados")
+        return
+
+    mayor = stocks[0]
+    for i in range(len(stocks)):
+        if stocks[i] > mayor:
+            mayor = stocks[i]
+
+    print("Mayor cantidad en stock:", mayor)
+    print("Codigos con mayor stock:")
+
+    for i in range(len(stocks)):
+        if stocks[i] == mayor:
+            print(codigos[i])
+
+
+def busqueda_producto(codigos, stocks):
+    encontrados = 0
+    codigo = int(input("Ingrese codigo a buscar (-1 para terminar): "))
+    while codigo != -1:
+        pos = buscar_indice(codigo, codigos)
+        if pos == -1:
+            print("Producto no encontrado")
+        else:
+            encontrados += 1
+            print("Stock:", stocks[pos])
+
+            if stocks[pos] < STOCK_MINIMO:
+                print("Esta por debajo del stock minimo")
+        codigo = int(input("Ingrese codigo a buscar (-1 para terminar): "))
+    print("Productos encontrados:", encontrados)
