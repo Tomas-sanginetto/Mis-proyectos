@@ -1,17 +1,34 @@
-def extraer_digito(a, b):
-    a = str(a)
-    b = str(b)
-    final = len(a) - len(b)
-    return final
+# Extraer un digito de un numero mediante otro numero
+# Retornar -1 en caso de no encontrar el num solicitado
+# El cero empieza de LA DERECHA
+
+
+def extraer_digito(numero, posicion):
+    '''Valida si el numero es negativo, retorna el valor del digito en la posicion indicada
+    en caso de encontrar devuelve -1'''
+    es_negativo = numero < 0
+    if es_negativo:
+        numero_positivo = -numero
+    else:
+        numero_positivo = numero
+
+    cantidad_digitos = len(str(numero_positivo))
+
+    if posicion < 0 or posicion >= cantidad_digitos:
+        digito = -1
+    else:
+        digito = (numero_positivo // 10**posicion) % 10
+        # num // 10 potencia de posicion (Valida) = num % 10 (Me da el num de la posicion)
+        # Ej: 12345 // 10**(pos 2) = 12345 // 100 = 123 % 10 = 3 (valor en la pos indicada)
+
+    return digito
+
 
 def main():
-    x = int(input("Ingrese el numero a extraer digitos:"))
-    while x < 1:
-        print("Debe ingresar un valor valido")
-        x = int(input("Ingrese el numero a extraer digitos:"))
-
-    y = int(input("Ingrese la cantidad de numeros a extraer:"))
-    resultado = extraer_digito(x, y)
+    '''Pide numero y la posicion a extraer, retorna el digito de la posicion ingresada'''
+    numero = int(input("Ingrese el numero a extraer digitos:"))
+    posicion = int(input("Ingrese la posicion del digito a extraer (0 = el de la derecha):"))
+    resultado = extraer_digito(numero, posicion)
     print("Tu digito quedo:", resultado)
 
 
