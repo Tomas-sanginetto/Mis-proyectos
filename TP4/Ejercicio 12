@@ -1,0 +1,23 @@
+# Programa que permita ingresar por teclado numeros e informar:
+# Si la cantidad de numeros ingresadas es par o impar (sin usar contadores)
+# Finalizar la lectura con -1
+par = True
+
+num = float(input("Ingrese cualquier numero: "))
+
+while num != -1:
+    par = not par
+    num = float(input("Ingrese cualquier numero: "))
+
+if par:
+    print("La cantidad de numeros ingresados es par")
+else:
+    print("La cantidad de numeros ingresados es impar")
+
+# PSEUDOCODIGO
+
+# INICIO
+# Ingresar numeros
+# Contar la cantidad de numeros ingresados
+# Informar si la cantidad de numeros ingresados es par o impar
+# FIN
