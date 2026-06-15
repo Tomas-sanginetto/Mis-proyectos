@@ -1,0 +1,27 @@
+# Ingresar un numero n, validar que sea positivo
+# Mostrar los primeros n numeros impares hasta el numero ingresado
+# Informar la suma de esos numeros impares
+
+suma_impares = 0
+
+num = int(input("Ingrese un numero entero:"))
+while num <= 0:
+    print("El numero debe ser positivo, intentelo nuevamente")
+    num = int(input("Ingrese un numero entero:"))
+
+for numeros in range(1, num + 1):
+    if numeros % 2 != 0:
+        print(numeros)
+        suma_impares = suma_impares + numeros
+
+print("La suma de todos los numeros impares es:", suma_impares)
+
+# PSEUDOCODIGO
+
+# INICIO
+# Ingresar un numero
+# Validar que el numero sea positivo
+# Mostrar los primeros n numeros impares hasta el numero ingresado
+# Sumar esos numeros impares
+# Mostrar la suma de esos numeros impares
+# FIN
