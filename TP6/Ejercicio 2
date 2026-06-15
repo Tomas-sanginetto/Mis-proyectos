@@ -1,0 +1,44 @@
+# Calcular la suma y el promedio de los numeros (Lista Ej 1)
+# Mostrar los elementos que superan el promedio de los valores ingresados
+
+n = int(input("Ingrese la cantidad de numeros al azar que quieres que tenga tu lista:"))
+minimo = int(input("Ingrese el valor minimo del parametro de numeros a generar:"))
+maximo = int(input("Ingrese el valor maximo del parametro de numeros a generar:"))
+while minimo > maximo:
+    print("El minimo no puede ser mayor que el maximo, intente nuevamente")
+    minimo = int(input("Ingrese el valor minimo del parametro de numeros a generar:"))
+    maximo = int(input("Ingrese el valor maximo del parametro de numeros a generar:"))
+
+
+def crear_lista(minimo,maximo):
+    import random
+    lista = [random.randint(minimo, maximo) for i in range(n)]
+    return lista
+
+
+# Ejercicio 2:
+def calcular_suma(lista):
+    return sum(lista)
+
+
+def calcular_promedio(lista):
+    return calcular_suma(lista) / n
+
+
+
+
+def elementos_sobre_promedio(lista, promedio):
+    mayores = []
+    for elemento in lista:
+        if elemento > promedio:
+            mayores.append(elemento)
+    return mayores
+
+
+lista = crear_lista(minimo, maximo)
+promedio = calcular_promedio(lista)
+
+print("La lista de numeros al azar creada fue:", lista)
+print("La suma de todos los numeros generados es de:", calcular_suma(lista))
+print("El promedio de la lista es:", promedio)
+print("Los elementos que superan el promedio son:", elementos_sobre_promedio(lista, promedio))
