@@ -1,0 +1,40 @@
+# Programa que permita ingresar numeros de legajos de alumnos y nota de examen final
+# Informar: POR CADA alumno si aprobo o no (>= 4)
+# Validar que la nota sea entre 1 y 10
+# Terminada la carga, informar: Cantidad de aprobados y desaprobados
+# Porcentaje de aplazados (Nota 1)
+# Terminar el ciclo con -1
+
+aplazados = 0
+aprobados = 0
+desaprobados = 0
+
+legajo = int(input("Ingrese el numero de legajo del alumno:"))
+while legajo != -1:
+    nota = int(input("Ingresar la nota final del alumno:"))
+    while nota > 10 or nota < 1:
+        print("Solo se aceptan notas entre 1 y 10, ingrese nuevamente")
+        nota = int(input("Ingresar la nota final del alumno:"))
+
+    if nota == 1:
+        print("Aplazado")
+        aplazados += 1
+    elif nota < 4 and nota > 1:
+        print("Desaprobado")
+        desaprobados += 1
+    elif nota >= 4:
+        print("Aprobado")
+        aprobados += 1
+    legajo = int(input("Ingrese el numero de legajo del alumno:"))
+
+totalAlumnos = aprobados + desaprobados + aplazados
+
+print("Cantidad de aprobados:", aprobados)
+print("Cantidad de desaprobados:", desaprobados)
+print("Cantidad de alumnos aplazados:", aplazados)
+
+if totalAlumnos == 0:
+    print("No se cargaron alumnos")
+else:
+    porcentaje_aplazados = (aplazados / totalAlumnos) * 100
+    print("Porcentaje de alumnos aplazados:", porcentaje_aplazados, "%")
