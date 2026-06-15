@@ -1,0 +1,33 @@
+# Mostrar la lista de atras hacia adelante
+
+import random
+
+
+def crear_lista(minimo, maximo, n):
+    return [random.randint(minimo, maximo) for i in range(n)]
+
+
+def mostrar_al_reves(lista):
+    n = len(lista)
+    for i in range(n):
+        print(lista[n - 1 - i])
+
+
+def main():
+    n = int(input("Ingrese la cantidad de numeros al azar que quieres que tenga tu lista:"))
+    minimo = int(input("Ingrese el valor minimo del parametro de numeros a generar:"))
+    maximo = int(input("Ingrese el valor maximo del parametro de numeros a generar:"))
+
+    while minimo > maximo:
+        print("El minimo no puede ser mayor que el maximo, intente nuevamente")
+        minimo = int(input("Ingrese el valor minimo del parametro de numeros a generar:"))
+        maximo = int(input("Ingrese el valor maximo del parametro de numeros a generar:"))
+
+    lista = crear_lista(minimo, maximo, n)
+    print("Lista original:", lista)
+
+    print("Lista al reves:")
+    mostrar_al_reves(lista)
+
+
+main()
