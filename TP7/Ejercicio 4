@@ -1,14 +1,16 @@
-#Dado un numero calcular su factorial 
+# Dado un numero calcular su factorial
 
 def calcular_factorial(a):
+    acum = 1          # inicialización obligatoria
+    for n in range(1, a + 1): #range(1, a + 1) para incluir a 'a'
+        acum = acum * n
+    return acum
 
-    for n in range(1, a):
-        a = a * n
-    return a
 
 def main():
     numero = int(input("Ingrese un numero entero para calcular su factorial:"))
     resultado = calcular_factorial(numero)
     print("El factorial de tu numero es:", resultado)
+
 
 main()
