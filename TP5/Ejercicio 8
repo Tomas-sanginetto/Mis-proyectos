@@ -1,0 +1,107 @@
+# Programa que permita ingresar informacion generada por distintos locales, en este orden:
+# Zona geografica del local (1: CABA ; 2, GBA)
+# Sexo del cliente (1, M ; 2, F)
+# Numero de menu (1, $250 ; 2, $400, 3, $500)
+
+# TODOS LOS DATOS A INGRESAR SON NUMERICOS (Ej: zona 1 sera CABA, sexo 1 sera MASCULINO, menu 1 = $250, etc.)
+
+# Validar que las opciones de sexo y de menu esten dentro de los valores permitidos
+# Mujeres 25% Descuento
+# INFORMAR:
+                    #Promedio de ticket de compra de hombres (En $)
+                    #Total de personas que compraron el menu de $250
+                    #Recaudacion total de la cadena (En $)
+                    #PARA EL PROMEDIO Y RECAUDACION SE DEBERA TENER EN CUENTA EL DESCUENTO APLICADO
+
+# EL PROGRAMA FINALIZA CON UNA CARGA -1 EN ZONA
+
+
+tickets_hombres = 0
+hombres_valor = 0
+menus_250 = 0
+recaudacion_total = 0
+tickets_total = 0
+
+zona = int(input("Ingrese la zona geografica (1 = CABA ; 2 = GBA ; -1 para finalizar): "))
+
+while zona != -1:
+
+    while zona != 1 and zona != 2:
+        print("Zona invalida")
+        zona = int(input("Ingrese la zona geografica (1 = CABA ; 2 = GBA ; -1 para finalizar): "))
+
+    if zona == 1:
+        print("Elegiste CABA")
+    else:
+        print("Elegiste GBA")
+
+
+    sexo = int(input("Ingrese su sexo (1 = M ; 2 = F): "))
+    while sexo != 1 and sexo != 2:
+        print("Valores invalidos")
+        sexo = int(input("Ingrese su sexo (1 = M ; 2 = F): "))
+
+    if sexo == 1:
+        print("Su sexo es masculino")
+        tickets_hombres += 1
+    else:
+        print("Su sexo es femenino")
+
+    tickets_total += 1
+
+
+    menu = int(input("Ingrese su numero de menu (1 = $250 ; 2 = $400 ; 3 = $500): "))
+    while menu != 1 and menu != 2 and menu != 3:
+        print("Valores invalidos")
+        menu = int(input("Ingrese su numero de menu (1 = $250 ; 2 = $400 ; 3 = $500): "))
+
+    if menu == 1:
+        print("El menu elegido fue el de $250")
+        menus_250 += 1
+        if sexo == 1:
+            hombres_valor = hombres_valor + 250
+            recaudacion_total = recaudacion_total + 250
+        else:
+            recaudacion_total = recaudacion_total + 187.5
+
+    elif menu == 2:
+        print("El menu elegido fue el de $400")
+        if sexo == 1:
+            hombres_valor = hombres_valor + 400
+            recaudacion_total = recaudacion_total + 400
+        else:
+            recaudacion_total = recaudacion_total + 300
+
+    else:
+        print("El menu elegido fue el de $500")
+        if sexo == 1:
+            hombres_valor = hombres_valor + 500
+            recaudacion_total = recaudacion_total + 500
+        else:
+            recaudacion_total = recaudacion_total + 375
+
+
+
+zona = int(input("Ingrese la zona geografica (1 = CABA ; 2 = GBA ; -1 para finalizar): "))
+
+
+#RESULTADOS
+
+if tickets_hombres > 0:
+    promedioHombres = hombres_valor / tickets_hombres
+    print("El promedio de ticket de hombres es de: $", promedioHombres)
+else:
+    print("No se ingresaron tickets de hombres")
+
+if menus_250 > 0:
+    print("Se vendieron", menus_250, "menus de $250")
+else:
+    print("No se consumio ningun menu de $250")
+
+if tickets_total > 0:
+    promedioTotal = recaudacion_total / tickets_total
+    print("El promedio total (Con descuentos aplicados) es de: $", promedioTotal)
+else:
+    print("No se ingresaron datos de ningun ticket")
+
+print("La recaudacion total (Con descuentos aplicados) fue de: $", recaudacion_total)
