@@ -1,0 +1,38 @@
+# Leer numeros que representen edades , finalizar la lectura con el num 999
+# Imprimir cuantos son menores de 18 años
+# Cuantos tiene 18 años o mas
+# El promedio de edad de ambos grupos
+# Edades validas (0-100)
+
+suma_menores = 0
+suma_mayores = 0
+menores = 0
+mayores = 0
+
+edad = int(input("Ingrese edad de la persona: "))
+
+while edad != 999:
+    if edad < 0 or edad > 100:
+        print("Edad invalida, ingrese nuevamente")
+    else:
+        if edad < 18:
+            menores += 1
+            suma_menores += edad
+        else:
+            mayores += 1
+            suma_mayores += edad
+
+    edad = int(input("Ingrese edad de la persona: "))
+
+print("Cantidad de menores:", menores)
+print("Cantidad de mayores o iguales a 18:", mayores)
+
+if menores > 0:
+    print("Promedio de edad de los menores:", suma_menores / menores)
+else:
+    print("No se ingresaron menores de 18.")
+
+if mayores > 0:
+    print("Promedio de edad de los mayores:", suma_mayores / mayores)
+else:
+    print("No se ingresaron personas de 18 o más.")
