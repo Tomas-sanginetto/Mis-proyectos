@@ -1,0 +1,44 @@
+# Leer un periodo de tiempo y expresarlo en dias, horas, minutos y segundos
+
+dias = 0
+horas = 0
+minutos = 0
+segundos = 0
+
+tiempo = int(input("Ingrese una cantidad de segundos:"))
+
+while tiempo <= 0:
+    print("Tu periodo de tiempo no es valido, intentelo de nuevo")
+    tiempo = int(input("Ingrese nuevamente una cantidad de segundos:"))
+
+while tiempo > 0:
+    if tiempo >= 86400:
+        dias += 1
+        tiempo = tiempo - 86400
+    elif tiempo < 86400 and tiempo >= 3600:
+        horas += 1
+        tiempo = tiempo - 3600
+    elif tiempo < 3600 and tiempo >= 60:
+        minutos += 1
+        tiempo = tiempo - 60
+    elif tiempo < 60:
+        segundos += 1
+        tiempo = tiempo - 1
+
+print("Su tiempo corresponde a", dias, "dias")
+print("Su tiempo corresponde a ", horas, "horas")
+print("Su tiempo corresponde a ", minutos, "minutos")
+print("Su tiempo corresponde a ", segundos, "segundos")
+
+
+# PSEUDOCODIGO
+# INICIO
+# Ingresar la cantidad total de segundos
+# Calcular los días (totalSegundos / 86400)
+# Calcular el resto de segundos que sobran después de los días (totalSegundos % 86400)
+# Calcular las horas (resto / 3600)
+# Calcular el resto de segundos que sobran después de las horas (resto % 3600)
+# Calcular los minutos (resto / 60)
+# Calcular los segundos finales (resto % 60)
+# Imprimir los días, horas, minutos y segundos
+# FIN
