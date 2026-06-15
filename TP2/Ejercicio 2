@@ -1,0 +1,30 @@
+# Tres personas invierten dinero para fundar una empresa (No necesariamente partes iguales)
+# Calcular que porcentaje invirtio cada uno
+
+persona1 = float(input("Cuanto invirtio la primer persona: $"))
+persona2 = float(input("Cuanto invirtio la segunda persona: $"))
+persona3 = float(input("Cuanto invirtio la tercer persona: $"))
+
+total_inversion = persona1 + persona2 + persona3
+
+print("El total invertido es de: $", total_inversion)
+
+porcentaje_p1 = (persona1 / total_inversion) * 100
+porcentaje_p2 = (persona2 / total_inversion) * 100
+porcentaje_p3 = (persona3 / total_inversion) * 100
+
+print("El porcentaje invertido por la primer persona es:", porcentaje_p1, "%")
+print("El porcentaje invertido por la segunda persona es:", porcentaje_p2, "%")
+print("El porcentaje invertido por la tercer persona es:", porcentaje_p3, "%")
+
+# PSEUDOCODIGO
+# INICIO
+# Ingresar monto invertido por la persona 1
+# Ingresar monto invertido por la persona 2
+# Ingresar monto invertido por la persona 3
+# Calcular el total sumando las tres inversiones
+# Calcular el porcentaje de la persona 1 (inversion1 * 100 / total)
+# Calcular el porcentaje de la persona 2 (inversion2 * 100 / total)
+# Calcular el porcentaje de la persona 3 (inversion3 * 100 / total)
+# Imprimir el porcentaje de cada persona
+# FIN
