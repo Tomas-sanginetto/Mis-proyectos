@@ -1,0 +1,21 @@
+# Mostrar las tablas de multiplicar entre 1 y 10 del numero 4
+# Como seria el algortimo para que el usuario pueda decidir la tabla de multiplicar?
+
+
+for i in range(4, 41, 4):
+    print(i)
+
+# En el caso de que elija el usuario la tabla a mostrar:
+
+num = int(input("Indique de que numero quiere la tabla de multiplicaciones:"))
+
+for i in range(num, num*11, num):
+    print(i)
+
+# PSEUDOCODIGO
+
+# INICIO
+# Mostrar las tablas de multiplicar entre 1 y 10 del numero 4
+# Pedir al usuario que ingrese el numero del cual quiere la tabla de multiplicar
+# Mostrar la tabla de multiplicar del numero ingresado por el usuario
+# FIN
