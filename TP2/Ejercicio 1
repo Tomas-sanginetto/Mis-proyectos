@@ -1,1 +1,34 @@
 
+# Escribir el programa correcto en Python para resolver los siguientes ejercicios:
+
+# A: Mostrar el mensaje "Hola Mundo" en la pantalla.
+print("Hola Mundo")
+
+# B: Ingresar el nombre del usuario del programa y saludarlo. 
+nombre = input("Ingrese su nombre: ")
+print("Hola", nombre)
+
+# C: Ingresar dos numeros y mostrar la suma de ambos y el resultado de restar el primer numero con el segundo.
+num1 = float(input("Ingrese el primer numero: "))
+num2 = float(input("Ingrese el segundo numero: "))
+suma = num1 + num2
+resta = num1 - num2
+print("La suma de ambos numeros es:", suma)
+print("La resta del primer numero con el segundo es:", resta)
+
+# D: Ingresar tres numeros y mostrar la suma y el promedio
+n1 = float(input("Ingrese el primer numero: "))
+n2 = float(input("Ingrese el segundo numero: "))
+n3 = float(input("Ingrese el tercer numero: "))
+suma_total = n1 + n2 + n3
+promedio = suma_total / 3
+print("La suma de los tres numeros es:", suma_total)
+print("El promedio de los tres numeros es:", promedio)
+
+# E: Ingresar el monto de una factura y calcular el IVA (21%)
+monto = float(input("Ingrese el monto de la factura: "))
+iva = monto * 0.21
+nuevo_monto = monto + iva
+print("El monto de la factura es:", monto)
+print("El IVA de la factura es:", iva)
+print("El nuevo monto de la factura con IVA incluido es:", nuevo_monto)
