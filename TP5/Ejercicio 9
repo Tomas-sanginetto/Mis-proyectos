@@ -1,7 +1,7 @@
-#Ingresar por teclado la cantidad de terminos a generar de la siguiente serie:
+# Ingresar por teclado la cantidad de terminos a generar de la siguiente serie:
 
-#El primer termino es el 1, cada termino se genera como el doble del termino anterior mas 5
-#Mostrar la serie por pantalla e informar la suma de los terminos generados
+# El primer termino es el 1, cada termino se genera como el doble del termino anterior mas 5
+# Mostrar la serie por pantalla e informar la suma de los terminos generados
 
 cantidad = int(input("Ingrese la cantidad de terminos a generar: "))
 
