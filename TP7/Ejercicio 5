@@ -1,12 +1,16 @@
-#Escribir una funcion que reciba un numero y devuelva la cantidad de digitos de ese numero
+# Escribir una funcion que reciba un numero y devuelva la cantidad de digitos de ese numero
 
 def recibir(a):
+    if a < 0:
+        a = -a
     cantidad = len(str(a))
     return cantidad
+
 
 def main():
     numero = int(input("Ingrese su numero:"))
     resultado = recibir(numero)
     print("La cantidad de digitos de tu numero son:", resultado)
+
 
 main()
