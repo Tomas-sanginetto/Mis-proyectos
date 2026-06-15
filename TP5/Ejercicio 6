@@ -1,0 +1,57 @@
+# Leer 3 numeros D, M y A, correspondientes a Dia, mes y año, tambien leer N (Cantidad de dias sumada a la fecha)
+# Imprimir la fecha que resulta de sumar N dias a la fecha
+# Tener en cuenta los años bisiestos
+
+dia = int(input("Ingrese el dia: "))
+mes = int(input("Ingrese el mes: "))
+año = int(input("Ingrese el año: "))
+
+while dia < 1 or dia > 31:
+    print("Dia invalido")
+    dia = int(input("Ingrese el dia: "))
+
+while mes < 1 or mes > 12:
+    print("Mes invalido")
+    mes = int(input("Ingrese el mes: "))
+
+while año < 1:
+    print("Año invalido")
+    año = int(input("Ingrese el año: "))
+
+n = int(input("Cuantos dias desea sumar: "))
+
+for i in range(n):
+
+    # SUMAR UN DIA
+    dia += 1
+
+    # DETERMINAR SI EL AÑO ES BISIESTO
+    if (año % 4 == 0 and año % 100 != 0) or (año % 400 == 0):
+        bisiesto = True
+    else:
+        bisiesto = False
+
+    # DETERMINAR CUANTOS DIAS TIENE EL MES
+    if mes == 2:
+        if bisiesto:
+            dias_mes = 29
+        else:
+            dias_mes = 28
+
+    elif mes == 4 or mes == 6 or mes == 9 or mes == 11:
+        dias_mes = 30
+
+    else:
+        dias_mes = 31
+
+    # VERIFICAR SI SE PASO DE LOS DIAS DEL MES
+    if dia > dias_mes:
+        dia = 1
+        mes += 1
+
+    # VERIFICAR SI SE PASO DE DICIEMBRE
+    if mes > 12:
+        mes = 1
+        año += 1
+
+print("La nueva fecha es:", dia, "/", mes, "/", año)
