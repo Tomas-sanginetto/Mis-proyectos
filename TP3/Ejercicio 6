@@ -1,0 +1,67 @@
+# Programa que pida un numero e indique que mes es
+# Validar que no sea un valor invalido
+
+num = int(input("Ingrese un numero de mes:"))
+
+while num < 1 or num > 12:
+    print("Numero de mes no encontrado, intentelo nuevamente!")
+    num = int(input("Ingrese un numero de mes:"))
+
+if num == 1:
+    print("Tu mes es enero")
+elif num == 2:
+    print("Tu mes es febrero")
+elif num == 3:
+    print("Tu mes es marzo")
+elif num == 4:
+    print("Tu mes es abril")
+elif num == 5:
+    print("Tu mes es mayo")
+elif num == 6:
+    print("Tu mes es junio")
+elif num == 7:
+    print("Tu mes es julio")
+elif num == 8:
+    print("Tu mes es agosto")
+elif num == 9:
+    print("Tu mes es septiembre")
+elif num == 10:
+    print("Tu mes es octubre")
+elif num == 11:
+    print("Tu mes es noviembre")
+elif num == 12:
+    print("Tu mes es diciembre")
+
+
+# PSEUDOCODIGO
+
+# INICIO
+# Ejercicio 6
+
+# Ingresar numeroMes
+# Comparar si numeroMes es igual a 1
+# Mostrar "Enero" si la comparación es verdadera
+# Comparar si numeroMes es igual a 2
+# Mostrar "Febrero" si la comparación es verdadera
+# Comparar si numeroMes es igual a 3
+# Mostrar "Marzo" si la comparación es verdadera
+# Comparar si numeroMes es igual a 4
+# Mostrar "Abril" si la comparación es verdadera
+# Comparar si numeroMes es igual a 5
+# Mostrar "Mayo" si la comparación es verdadera
+# Comparar si numeroMes es igual a 6
+# Mostrar "Junio" si la comparación es verdadera
+# Comparar si numeroMes es igual a 7
+# Mostrar "Julio" si la comparación es verdadera
+# Comparar si numeroMes es igual a 8
+# Mostrar "Agosto" si la comparación es verdadera
+# Comparar si numeroMes es igual a 9
+# Mostrar "Septiembre" si la comparación es verdadera
+# Comparar si numeroMes es igual a 10
+# Mostrar "Octubre" si la comparación es verdadera
+# Comparar si numeroMes es igual a 11
+# Mostrar "Noviembre" si la comparación es verdadera
+# Comparar si numeroMes es igual a 12
+# Mostrar "Diciembre" si la comparación es verdadera
+# Mostrar "Número de mes inválido" si numeroMes es menor a 1 o mayor a 12
+# FIN
