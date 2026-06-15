@@ -1,0 +1,28 @@
+# Ingresar la longitud del radio de un circulo. Calcular e imprimir:
+# La superficie del circulo (pi.r(2))
+# El perimetro de la circunferencia (pi.d) d = 2r
+# La superficie de la esfera (4.pi.r(2))
+
+pi = 3.1416
+
+longitud = float(input("Ingrese la longitud del circulo:"))
+
+superficie_circulo = pi * (longitud ** 2)
+perimetro = pi * (longitud * 2)
+superficie_esfera = 4 * pi * (longitud ** 2)
+
+print("La superficie de tu circulo es:",superficie_circulo)
+print("El perimetro de tu circulo es:", perimetro)
+print("La superficie de tu esfera es:", superficie_esfera)
+
+# PSEUDOCODIGO
+# INICIO
+# Ingresar el radio
+# Calcular el diámetro (radio * 2)
+# Calcular la superficie del círculo (pi * radio²)
+# Calcular el perímetro de la circunferencia (pi * diámetro)
+# Calcular la superficie de la esfera (4 * pi * radio²)
+# Imprimir la superficie del círculo
+# Imprimir el perímetro de la circunferencia
+# Imprimir la superficie de la esfera
+# FIN
