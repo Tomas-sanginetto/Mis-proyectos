@@ -1,0 +1,41 @@
+# Duplicar los valores de aquellos elementos que sean menores al promedio de los valores ingresados
+import random
+
+
+def crear_lista(minimo, maximo, n):
+    return [random.randint(minimo, maximo) for i in range(n)]
+
+
+def calcular_suma(lista):
+    return sum(lista)
+
+
+def calcular_promedio(lista):
+    return calcular_suma(lista) / len(lista)
+
+
+def duplicar_valores(lista):
+    promedio = calcular_promedio(lista)
+    for i in range(len(lista)):
+        if lista[i] < promedio:
+            lista[i] = lista[i] * 2
+    return lista
+
+
+def main():
+    n = int(input("Ingrese la cantidad de numeros al azar que quieres que tenga tu lista:"))
+    minimo = int(input("Ingrese el valor minimo del parametro de numeros a generar:"))
+    maximo = int(input("Ingrese el valor maximo del parametro de numeros a generar:"))
+
+    while minimo > maximo:
+        print("El minimo no puede ser mayor que el maximo, intente nuevamente")
+        minimo = int(input("Ingrese el valor minimo del parametro de numeros a generar:"))
+        maximo = int(input("Ingrese el valor maximo del parametro de numeros a generar:"))
+
+    lista = crear_lista(minimo, maximo, n)
+    print("Lista original:", lista)
+    print("Promedio:", calcular_promedio(lista))
+    print("Lista con valores duplicados:", duplicar_valores(lista))
+
+
+main()
