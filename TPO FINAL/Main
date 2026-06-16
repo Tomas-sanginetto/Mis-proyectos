@@ -1,0 +1,54 @@
+# Materia: Pensamiento computacional, Algoritmia y Programacion
+# Equipo: 08
+# Integrantes: Bongiovanni, Chizzini, Marletto, Niederer, Sanginetto
+# Docentes: Veronica Galati, Santiago Mendoza
+# Descripcion: Sistema de gestion de peliculas CineVerse Complex
+from funciones import *
+
+
+def main():
+    '''Inicia el programa llamando a cada una de las funciones
+    permitiendo utilizar sus instrucciones y controlar el flujo del programa'''
+    lst_titulos = []
+    lst_generos = []
+    lst_duraciones = []
+    lst_salas = []
+    lst_butacas = []
+    lst_entradas = []
+    lst_valores = []
+    lst_estados = []
+    lst_generos_disponibles = ["Acción", "Aventura", "Comedia", "Drama",
+                            "Ciencia Ficción", "Terror", "Animación", "Documental"] # Catalogo + Agregar nuevo
+
+    opciones_menu()
+    n = input("Seleccione una opcion:")
+    while n.isdigit() == False:
+        print(Fore.RED + "Ingrese un numero, intentelo nuevamente")
+        n = input("Seleccione una opcion: ")
+    n = ingresar_opcion(n)
+    while n != 7:
+
+        if n == 1:
+            registrar_pelicula(lst_titulos, lst_generos, lst_duraciones, lst_salas, lst_butacas, lst_entradas, lst_valores, lst_estados, lst_generos_disponibles)  # Registrar
+        elif n == 2:
+            eliminar_pelicula(lst_titulos, lst_generos, lst_duraciones, lst_salas, lst_butacas, lst_entradas, lst_valores, lst_estados)  # Eliminar
+        elif n == 3:
+            modificar_pelicula(lst_titulos, lst_generos, lst_duraciones, lst_salas, lst_butacas, lst_entradas, lst_valores, lst_estados)  # Modificar
+        elif n == 4:
+            registrar_venta(lst_titulos, lst_butacas, lst_entradas, lst_valores, lst_estados)  # Registrar Venta (Unicas listas que necesitan)
+        elif n == 5:
+            informe_general(lst_titulos, lst_generos, lst_duraciones, lst_salas, lst_butacas, lst_entradas, lst_valores, lst_estados)  # Informe General
+        elif n == 6:
+            gestionar_generos(lst_titulos, lst_generos, lst_generos_disponibles) # Unicas listas que necesitan
+
+        opciones_menu()
+        n = input("Seleccione una opcion:")
+        while n.isdigit() == False:
+            print(Fore.RED + "Ingrese un numero, intentelo nuevamente")
+            n = input("Seleccione una opcion: ")
+        n = ingresar_opcion(n)
+    print("Gracias por usar CineVerse Complex")
+
+
+
+main()
