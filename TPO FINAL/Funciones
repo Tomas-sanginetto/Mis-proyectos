@@ -1,0 +1,546 @@
+# Materia: Pensamiento computacional, Algoritmia y Programacion
+# Equipo: 08
+# Integrantes: Bongiovanni, Chizzini, Marletto, Niederer, Sanginetto
+# Docentes: Veronica Galati, Santiago Mendoza
+# Descripcion: Sistema de gestion de peliculas CineVerse Complex
+from colorama import Fore, init
+init(autoreset=True)  # Vuelve al color normal automaticamente despues de cada print
+
+
+def opciones_menu():
+    '''Mostrar el menu principal y sus opciones'''
+    print(Fore.GREEN + "=" * 50)
+    print(Fore.GREEN + "SISTEMA DE GESTIÓN: CINEVERSE COMPLEX")
+    print("1. Registrar Pelicula")
+    print("2. Eliminar Pelicula")
+    print("3. Modificar Pelicula")
+    print("4. Registrar Venta")
+    print("5. Informe General")
+    print("6. Gestionar Generos")
+    print("7. Salir")
+    print(Fore.GREEN + "=" * 50)
+
+
+def gestionar_generos(lst_titulos, lst_generos, lst_generos_disponibles):
+    '''Muestra el submenu de generos y permite registrar un genero nuevo,
+    modificar los generos de una pelicula o eliminar un genero del catalogo'''
+    opciones = ["Registrar nuevo genero", "Modificar generos de una pelicula", "Eliminar un genero del catalogo", "Volver al menu principal"]
+    indice = seleccionar_opcion(opciones, Fore.GREEN +  "Gestion de generos - Que desea hacer?") # Fore en parametro xq el print esta adentro de la funcion
+    while indice != 3:
+        if indice == 0:
+            crear_genero_nuevo(lst_generos_disponibles)
+            print("Genero registrado con exito!")
+        elif indice == 1:
+            modificar_generos_pelicula(lst_titulos, lst_generos, lst_generos_disponibles)
+        elif indice == 2:
+            eliminar_genero_catalogo(lst_generos_disponibles, lst_generos)
+        indice = seleccionar_opcion(opciones, Fore.GREEN + "Gestion de generos - Que desea hacer?")
+
+
+def eliminar_genero_catalogo(lst_generos_disponibles, lst_generos):
+    '''Permite elegir un genero del catalogo y lo elimina unicamente si ninguna pelicula lo esta usando'''
+    if len(lst_generos_disponibles) == 0:
+        print(Fore.RED + "No existen generos disponibles!")
+        return 
+
+    indice = seleccionar_opcion(lst_generos_disponibles, "Seleccione el genero a eliminar del catalogo:")
+    genero = lst_generos_disponibles[indice]
+    en_uso = False
+    for i in range(len(lst_generos)):
+        if genero in lst_generos[i]:
+            en_uso = True
+    if en_uso:
+        print(Fore.RED + "No se puede eliminar: hay peliculas que usan ese genero.")
+    else:
+        lst_generos_disponibles.pop(indice)
+        print("Genero eliminado del catalogo con exito!")
+
+
+def modificar_generos_pelicula(lst_titulos, lst_generos, lst_generos_disponibles):
+    '''Permite seleccionar una pelicula y agregarle o quitarle generos, repite hasta que el usuario decida volver'''
+    if len(lst_titulos) == 0:
+        print(Fore.RED + "No hay peliculas registradas!")
+        return # Anticipado para cortar las instrucciones de la funcion
+
+    indice_pelicula = ingresar_titulo("Seleccione la pelicula:", lst_titulos)
+    opciones = ["Agregar genero", "Quitar genero", "Volver al menu de generos"]
+    indice = seleccionar_opcion(opciones, Fore.GREEN + "Que desea hacer?")
+    while indice != 2:  # 2 = ultimo indice de "opciones" (len(opciones) - 1)
+        if indice == 0:
+            agregar_genero_pelicula(lst_generos, lst_generos_disponibles, indice_pelicula)
+        elif indice == 1:
+            quitar_genero_pelicula(lst_generos, indice_pelicula)
+        indice = seleccionar_opcion(opciones, Fore.GREEN + "Que desea hacer?") # Dentro del while porque sino seria un ciclo infinito
+
+
+def agregar_genero_pelicula(lst_generos, lst_generos_disponibles, indice_pelicula):
+    '''Muestra los generos del catalogo que la pelicula todavia no tiene y agrega el elegido (o uno nuevo) a esa pelicula'''
+    generos_disponibles_pelicula = []
+    for i in range(len(lst_generos_disponibles)):
+        if lst_generos_disponibles[i] not in lst_generos[indice_pelicula]: # Revisa 1x1 los elementos internamente
+            generos_disponibles_pelicula.append(lst_generos_disponibles[i])
+
+    generos_disponibles_pelicula.append("Agregar nuevo genero")
+    indice = seleccionar_opcion(generos_disponibles_pelicula, "Seleccione el genero a agregar:")
+    if indice == len(generos_disponibles_pelicula) - 1:
+        nuevo = crear_genero_nuevo(lst_generos_disponibles)
+        lst_generos[indice_pelicula].append(nuevo)
+    else:
+        lst_generos[indice_pelicula].append(generos_disponibles_pelicula[indice])
+    print("Genero agregado con exito!")
+
+    
+def quitar_genero_pelicula(lst_generos, indice_pelicula):
+    '''Permite quitar un genero de una pelicula con confirmacion, validando que siempre quede al menos un genero'''
+    if len(lst_generos[indice_pelicula]) <= 1:
+        print(Fore.RED + "La pelicula debe tener al menos un genero, no se puede quitar")
+        return
+    
+    indice = seleccionar_opcion(lst_generos[indice_pelicula], "Seleccione el genero a quitar:")
+    genero_elegido = lst_generos[indice_pelicula][indice] # LISTA DE LISTAS
+    confirmacion = input(f"Esta seguro que desea quitar el genero '{genero_elegido}'? (S/N): ")
+    while confirmacion.upper() != "S" and confirmacion.upper() != "N":
+        print(Fore.RED + "Opcion invalida.")
+        confirmacion = input("Esta seguro? (S/N): ")
+    if confirmacion.upper() == "S":
+        lst_generos[indice_pelicula].pop(indice)
+        print("Genero eliminado con exito!")
+    else:
+        print("Eliminacion cancelada.")
+
+def crear_genero_nuevo(lst_generos_disponibles):
+    '''Valida que no se ingrese un genero vacio ni repetido y lo agrega al catalogo'''
+    nombre = input("Ingrese el nuevo genero:").strip() # quita espacios y los valida el while 
+    while nombre == "" or genero_existe(nombre, lst_generos_disponibles):
+        if nombre == "":
+            print(Fore.RED + "No puede ser un genero vacio, ingrese nuevamente!")
+        else:
+            print(Fore.RED + "Genero ya existente")
+        nombre = input("Intente con otro genero:").strip() # Quita espacios
+    lst_generos_disponibles.append(nombre)
+    return nombre
+
+
+# Muy parecida a titulo_existe pero con generos
+def genero_existe(genero, lst_generos_disponibles):
+    '''Valida que no haya un genero repetido'''
+    genero = genero.strip().lower()
+    for i in range(len(lst_generos_disponibles)):
+        if lst_generos_disponibles[i].strip().lower() == genero:
+            return True
+    return False 
+
+
+def seleccionar_opcion(lista, mensaje):
+    '''Muestra la lista numerada junto con un mensaje, valida que el usuario
+    ingrese un numero dentro del rango valido y retorna el indice
+    correspondiente a la opcion elegida'''
+    print(mensaje)
+    for i in range(len(lista)):
+        print(f"{i + 1} {lista[i]}") # Muestra el valor humano y el indice "Lenguaje Python (El 1 es el cero)"
+    num = input("Ingrese el numero: ")
+    while num.isdigit() == False or int(num) < 1 or int(num) > len(lista):
+        print(Fore.RED + "Numero invalido, intentelo nuevamente")
+        num = input("Ingrese el numero: ")
+    return int(num) - 1 # Menos 1, por el indice inicial de las listas de Python [0]
+# ===================================================================================================================
+def registrar_pelicula(lst_titulos, lst_generos, lst_duraciones, lst_salas, lst_butacas, lst_entradas, lst_valores, lst_estados, lst_generos_disponibles):
+    '''Pedir y agregar cada uno de los campos de las peliculas nuevas en las listas existentes'''
+    continuar = "S"
+    while continuar.upper() == "S":
+        titulo = validar_titulo("Ingrese la pelicula a registrar:")
+        while titulo_existe(titulo, lst_titulos): # While + Bandera -> (Dentro de la funcion)
+            print(Fore.RED + "Error: esa pelicula ya existe. Ingrese un titulo diferente.")
+            titulo = validar_titulo("Ingrese la pelicula a registrar:")
+        genero = ingresar_genero("Seleccione el genero:", lst_generos_disponibles)
+        duracion = ingresar_duracion()
+        sala = ingresar_positivo("Ingrese el numero de sala: ")
+        butacas = ingresar_positivo("Ingrese la capacidad de la sala (butacas): ")
+        entradas = 0  # Pelicula nueva no tiene entradas YA vendidas
+        valor = ingresar_valor_entrada("Ingrese el valor de la entrada: ")
+        estado = ingresar_estado_registro("Seleccione el estado de la pelicula: ")  # Esa funcion para que no aparezca la opcion finalizada
+
+        lst_titulos.append(titulo)
+        lst_generos.append([genero]) # Lista de listas, IMPORTANTE !! 
+        lst_duraciones.append(duracion) 
+        lst_salas.append(sala)
+        lst_butacas.append(butacas)
+        lst_entradas.append(entradas)
+        lst_valores.append(valor)
+        lst_estados.append(estado)
+
+        print("Pelicula registrada con exito!")
+        continuar = input("Desea registrar otra pelicula? (S/N): ")
+        while continuar.upper() != "S" and continuar.upper() != "N":
+            print(Fore.RED + "Opcion invalida")
+            continuar = input("Desea registrar otra pelicula? (S/N): ")
+
+
+def titulo_existe(titulo, lst_titulos):
+    # Valida la repeticion de titulos con BANDERAS
+    '''Verifica si un titulo ya existe en la lista, ignorando mayusculas/minusculas
+    y espacios al principio o al final'''
+    titulo = titulo.strip().lower() # .strip quita los espacios , saltos de linea, tab (Siempre y cuando sea al principio o final)
+    for i in range(len(lst_titulos)):
+        if lst_titulos[i].strip().lower() == titulo:
+            return True # Return que termina la funcion (NO ruptura de ciclo)
+    return False # En caso de que no se hayan encontrado titulos iguales
+
+def ingresar_opcion(opcion):
+    '''Valida que la opcion sea un digito dentro del rango numerico 1-7
+    y retorna la variable teclado como entero'''
+    while opcion.isdigit() == False or int(opcion) < 1 or int(opcion) > 7:
+        print(Fore.RED + "La opcion seleccionada no es valida")
+        opcion = input("Seleccione una opcion:")
+    return int(opcion)
+
+
+def ingresar_positivo(mensaje):
+    '''Validar que el input sea un digito mayor a cero
+    y retornar el entero de la variable teclado'''
+    num = input(mensaje)
+    while num.isdigit() == False or int(num) == 0:
+        print(Fore.RED + "Error debe ser un numero positivo")
+        num = input(mensaje)
+    return int(num)
+
+
+def ingresar_no_negativo(mensaje):
+    '''Validar que el input sea un digito mayor o igual a cero
+    y retornar el entero de la variable teclado'''
+    num = input(mensaje)
+    while num.isdigit() == False or int(num) < 0:
+        print(Fore.RED + "Error, debe ser un número entero no negativo")
+        num = input(mensaje)
+    return int(num)
+
+
+def ingresar_duracion(): # Sin parametro porque siempre se usa en el mismo contexto 
+    '''Pide las horas y los minutos por separado, valida que los minutos
+    esten entre 0 y 59 y que la duracion total no sea cero,
+    y retorna la duracion total calculada en minutos'''
+    horas = ingresar_no_negativo("Ingrese las horas: ")
+    minutos = ingresar_no_negativo("Ingrese los minutos: ")
+    while minutos > 59 or (horas == 0 and minutos == 0): # Valida que no sea valor nulo (De ambos) y que los minutos vayan HASTA 59
+        if minutos > 59:
+            print(Fore.RED + "Los minutos deben estar entre 0 y 59")
+        else:
+            print(Fore.RED + "La duracion no puede ser cero")
+        horas = ingresar_no_negativo("Ingrese las horas: ")
+        minutos = ingresar_no_negativo("Ingrese los minutos: ")
+    return horas * 60 + minutos
+
+
+def es_numero_decimal(cad):
+    '''Arma una copia del texto sin el punto decimal (las cadenas son inmutables)
+    y verifica que haya como maximo un punto y que el resto sean solo digitos'''
+    nueva = ""  # se construye la copia caracter por caracter
+    for i in range(len(cad)): # cada caracter en un string tiene un indice IMPORTANTE ! 
+        if cad[i] != ".": # si es "." no se copia a la nueva cadena
+            nueva += cad[i]
+    return cad.count(".") <= 1 and nueva.isdigit()
+
+def ingresar_valor_entrada(mensaje):
+    '''Pide el precio validando que sea un numero no negativo (permite decimales)
+    y retorna el valor original convertido a float'''
+    cad = input(mensaje)
+    while es_numero_decimal(cad) == False:
+        print(Fore.RED + "Error, debe ingresar un numero valido")
+        cad = input(mensaje)
+    return float(cad)
+
+
+def ingresar_titulo(mensaje, lst_titulos):
+    '''Muestra la lista de peliculas disponibles, pide al usuario que seleccione una
+    y retorna el indice de la pelicula seleccionada'''
+    return seleccionar_opcion(lst_titulos, mensaje)
+
+
+def validar_titulo(mensaje):
+    '''Pide al usuario ingresar el nombre de una nueva pelicula, validando que no quede vacio
+    y retorna el nombre ingresado'''
+    titulo = input(mensaje).strip() # Para que no sea vacio
+    while titulo == "": # Evitando titulos vacios
+        print(Fore.RED + "No se ingreso ningun titulo, intentelo denuevo")
+        titulo = input(mensaje).strip()
+    return titulo
+
+
+def ingresar_genero(mensaje, lst_generos_disponibles):
+    '''Muestra en pantalla cada genero de la lista, pide ingresar el genero
+    y retorna el genero elegido de la lista'''
+    lst_mostrar = lst_generos_disponibles+ ["Agregar nuevo genero"]
+    indice = seleccionar_opcion(lst_mostrar, mensaje)
+    if indice == len(lst_generos_disponibles):
+        return crear_genero_nuevo(lst_generos_disponibles)
+    else:
+        return lst_generos_disponibles[indice]
+
+
+def ingresar_estado(mensaje):
+    '''Muestra los posibles estados de la pelicula, pide ingresar el estado
+    y retorna el estado ingresado'''
+    opciones = ["En cartelera", "Proximo estreno", "Funcion especial", "Finalizada"]
+    indice = seleccionar_opcion(opciones, mensaje)
+    return opciones[indice]
+    
+
+
+def ingresar_estado_registro(mensaje):  # Se usa cuando se registra una nueva peli (No puede ser estado = Finalizada)
+    '''Muestra los posibles estados en el registro de una pelicula, pide ingresar el estado
+    y retorna el estado ingresado'''
+    opciones = ["En cartelera", "Proximo estreno", "Funcion especial"]
+    indice = seleccionar_opcion(opciones, mensaje)
+    return opciones[indice]
+
+
+# ===================================================================================================================
+
+def ordena(lst_titulos, lst_generos, lst_duraciones, lst_salas, lst_butacas, lst_entradas, lst_valores, lst_estados):
+    '''Ordena los titulos por cantidad de entradas o por orden alfabetico en el caso de necesitarlo'''
+    # METODO DE BURBUJEO
+    n = len(lst_titulos)
+    for i in range(n - 1):  # Cuenta las pasadas completas
+        for j in range(n - 1 - i):  # Recorre comparando el elemento j con j+1
+            # Dentro de la condicion logica se lleva a cabo un "Swapeo", es equivalente a usar un aux pero mas comprimido y en una sola linea
+            if lst_entradas[j] < lst_entradas[j + 1] or (lst_entradas[j] == lst_entradas[j + 1] and lst_titulos[j] > lst_titulos[j + 1]):
+                lst_titulos[j],   lst_titulos[j+1] = lst_titulos[j+1],   lst_titulos[j]
+                lst_generos[j],   lst_generos[j+1] = lst_generos[j+1],   lst_generos[j]
+                lst_duraciones[j], lst_duraciones[j+1] = lst_duraciones[j+1],lst_duraciones[j]
+                lst_salas[j],     lst_salas[j+1] = lst_salas[j+1],     lst_salas[j]
+                lst_butacas[j], lst_butacas[j+1] = lst_butacas[j+1], lst_butacas[j]
+                lst_entradas[j],  lst_entradas[j+1] = lst_entradas[j+1],  lst_entradas[j]
+                lst_valores[j],   lst_valores[j+1] = lst_valores[j+1],   lst_valores[j]
+                lst_estados[j],   lst_estados[j+1] = lst_estados[j+1],   lst_estados[j]
+
+def informe_general(lst_titulos, lst_generos, lst_duraciones, lst_salas, lst_butacas, lst_entradas, lst_valores, lst_estados):
+    '''Valida que la lista de titulos no este vacia, genera una matriz con cada uno de los atributos de cada titulo y la imprime'''
+    if len(lst_titulos) == 0:
+        print(Fore.RED + "No hay peliculas registradas")
+        return  # No devuelve nada, solo termina la funcion
+    # Return anticipado para que no ejecute todo el resto del codigo sin necesidad
+    ordena(lst_titulos, lst_generos, lst_duraciones, lst_salas, lst_butacas, lst_entradas, lst_valores, lst_estados)
+    print(Fore.GREEN + "=" * 50)
+    print(Fore.GREEN + "     INFORME GENERAL - PELÍCULAS")
+    print(Fore.GREEN + "=" * 50)
+    matriz = []
+    i = 0
+    while i < len(lst_titulos):
+        fila = [lst_titulos[i], lst_generos[i], lst_duraciones[i],
+                lst_salas[i], lst_butacas[i], lst_entradas[i], lst_valores[i], lst_estados[i]]
+        # Agrega toda la lista fila de i, i + 1, ... hasta llegar a len(lst_titulos)
+        matriz.append(fila)
+        i += 1 # No hay que olvidarse de esto ! (Loop infinito)
+
+    # imprimir desde la matriz
+    i = 0
+    while i < len(matriz):
+        print(f"Título:            {matriz[i][0]}")
+        generos_texto = "" # Funciona como "Acumulador", pega genero 1 x 1 
+        j = 0  # Se usa para recorrer los generos DE ESA PELICULA (Tiene que ser distinta a i, que recorre las peliculas)
+        while j < len(matriz[i][1]):
+            generos_texto += matriz[i][1][j]
+            # i = fila, 1 = Columna j = lista de generos por adentro 
+
+
+            if j < len(matriz[i][1]) - 1: # Pregunta si j es el ultimo genero DE ESA PELICULA
+                generos_texto += ", " # Si hay mas generos agrega la coma entre medio
+            j += 1
+        # fila = atributos , columnas = distintos atributos
+        print(f"Género:            {generos_texto}")
+        print(f"Duración:          {matriz[i][2]} minutos")
+        print(f"Sala:              {matriz[i][3]}")
+        print(f"Butacas disponibles: {matriz[i][4] - matriz[i][5]} de {matriz[i][4]}") # N butacas - N entrdas vendidas 
+        print(f"Entradas vendidas: {matriz[i][5]}")
+        print(f"Valor entrada:     ${matriz[i][6]}")
+        print(f"Estado:            {matriz[i][7]}")
+        print("-" * 50)
+        i += 1
+
+    input("Presione Enter para volver al menu principal")
+
+
+# ===================================================================================================================
+
+
+def eliminar_pelicula(lst_titulos, lst_generos, lst_duraciones, lst_salas, lst_butacas,  lst_entradas, lst_valores, lst_estados):
+    '''Valida que haya minimo un titulo, valida que la pelicula haya sido finalizada
+    pide una confirmacion y elimina cada uno de los datos de la pelicula eliminada'''
+    if len(lst_titulos) == 0:
+        print(Fore.RED + "No hay peliculas registradas.")
+        return  # En caso de no existir peliculas registradas, no seguir con la ejecucion
+
+    indice = ingresar_titulo("Seleccione la pelicula a eliminar:", lst_titulos)
+
+    if lst_estados[indice] != "Finalizada":  # Borrar unicamente funciones finalizadas
+        print(Fore.RED + "Solo se pueden eliminar peliculas con estado Finalizada.")
+        return  # Si se cumple esa funcion cortar aca la funcion
+
+    confirmacion = input(f"Esta seguro que desea eliminar '{lst_titulos[indice]}'? (S/N): ")
+    while confirmacion.upper() != "S" and confirmacion.upper() != "N":
+        print(Fore.RED + "Opcion invalida.")
+        confirmacion = input("Esta seguro? (S/N): ")
+
+    if confirmacion.upper() == "S":
+        lst_titulos.pop(indice)
+        lst_generos.pop(indice)
+        lst_duraciones.pop(indice)
+        lst_salas.pop(indice)
+        lst_butacas.pop(indice)
+        lst_entradas.pop(indice)
+        lst_valores.pop(indice)
+        lst_estados.pop(indice)
+        print("Pelicula eliminada con exito.")
+    else:
+        print("Eliminacion cancelada.") # Es decir, si es "N"
+
+# ===================================================================================================================
+
+
+def opciones_modificar():
+    '''Muestra el menu interactivo para modificar peliculas'''
+    print(Fore.GREEN + "--- Que desea modificar? ---")
+    print("1. Titulo")
+    print("2. Duracion")
+    print("3. Sala")
+    print("4. Entradas vendidas")
+    print("5. Valor entrada")
+    print("6. Estado")
+    print("7. Butacas de la sala")
+    print("8. Volver al menu principal")
+
+
+def modificar_pelicula(lst_titulos, lst_generos, lst_duraciones, lst_salas, lst_butacas, lst_entradas, lst_valores, lst_estados):
+    '''Valida que la lista de titulos no este vacia, permite seleccionar una pelicula 
+    y modificar sus atributos, repite hasta que el usuario decida volver'''
+    if len(lst_titulos) == 0:
+        print(Fore.RED + "No hay peliculas registradas.")
+        return
+
+    indice = ingresar_titulo("Seleccione la pelicula a modificar:", lst_titulos)
+
+    opciones_modificar()
+    opcion = input("Seleccione una opcion: ")
+    while opcion.isdigit() == False or int(opcion) < 1 or int(opcion) > 8:
+        print(Fore.RED + "Opcion invalida")
+        opcion = input("Seleccione una opcion: ")
+    opcion = int(opcion)
+
+    while opcion != 8:  # 8 = Volver al menu principal
+        if opcion == 1:
+            nuevo_titulo = validar_titulo("Ingrese el nuevo titulo: ")
+            while titulo_existe(nuevo_titulo, lst_titulos):
+                print(Fore.RED + "Error: esa pelicula ya existe. Ingrese un titulo diferente.")
+        
+                nuevo_titulo = validar_titulo("Ingrese el nuevo titulo: ")
+            lst_titulos[indice] = nuevo_titulo
+
+        elif opcion == 2:
+            lst_duraciones[indice] = ingresar_duracion()
+
+        elif opcion == 3:
+            lst_salas[indice] = ingresar_positivo("Ingrese el nuevo numero de sala: ")
+
+        elif opcion == 4:
+            entradas = ingresar_no_negativo("Ingrese las nuevas entradas vendidas: ")
+            while entradas > lst_butacas[indice]:  # No se pudo vender mas que la capacidad de la sala
+                print(Fore.RED + "Las entradas vendidas no pueden superar las butacas de la sala")
+                entradas = ingresar_no_negativo("Ingrese las nuevas entradas vendidas: ")
+            lst_entradas[indice] = entradas
+
+        elif opcion == 5:
+            lst_valores[indice] = ingresar_valor_entrada("Ingrese el nuevo valor de entrada: ")
+
+        elif opcion == 6:
+            lst_estados[indice] = ingresar_estado("Ingrese el nuevo estado:")
+
+        elif opcion == 7:
+            butacas = ingresar_positivo("Ingrese la nueva capacidad de la sala: ")
+            while butacas < lst_entradas[indice]:  # La capacidad no puede quedar debajo de lo ya vendido
+                print(Fore.RED + "La capacidad no puede ser menor a las entradas ya vendidas")
+                butacas = ingresar_positivo("Ingrese la nueva capacidad de la sala: ")
+            lst_butacas[indice] = butacas
+
+        print("Modificacion realizada con exito!")
+        opciones_modificar()
+        opcion = input("Seleccione una opcion: ")
+        while opcion.isdigit() == False or int(opcion) < 1 or int(opcion) > 8:
+            print(Fore.RED + "Opcion invalida")
+            opcion = input("Seleccione una opcion: ")
+        opcion = int(opcion)
+
+
+# ===========================================================================================================================
+
+def registrar_pago(total):
+    '''Solicita la forma de pago: con tarjeta aplica un recargo del 10% y en
+    efectivo calcula el vuelto con la menor cantidad de billetes posible.
+    Retorna True si el pago se completo y False si se cancelo'''
+    opciones_pago = ["Efectivo", "Tarjeta de credito"]
+    indice = seleccionar_opcion(opciones_pago, "Seleccione la forma de pago:")
+
+    if indice == 1:  # Tarjeta de credito
+        total_con_recargo = round(total * 1.10, 2)  # El ", 2" conserva los centavos
+        print(f"Recargo del 10% aplicado. Total a pagar: ${total_con_recargo}")
+        return True
+
+    # Efectivo: se acumula lo entregado hasta cubrir el total
+    restante = total
+    while restante > 0:
+        entregado = ingresar_no_negativo(f"Importe a pagar: ${restante}. Ingrese el importe entregado (0 para cancelar): ")
+        if entregado == 0:
+            print("Pago cancelado.")
+            return False
+        restante = round(restante - entregado, 2)  # round evita errores de coma flotante
+        if restante > 0:
+            print(f"Aun falta pagar: ${restante}")
+
+    vuelto = -restante  # restante quedo en 0 o negativo, el vuelto es lo positivo
+    if vuelto > 0:
+        print(f"Vuelto: ${vuelto}")
+        denominaciones = [20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10]
+        restante_billetes = int(vuelto)  # Parte entera: los billetes no tienen centavos
+        monedas = round(vuelto - restante_billetes, 2)  # Centavos que no llegan a billete
+        for i in range(len(denominaciones)):
+            cantidad = restante_billetes // denominaciones[i]  # Cuantos billetes de este valor entran
+            if cantidad > 0:
+                print(f"{cantidad} billete(s) de ${denominaciones[i]}")
+                restante_billetes = restante_billetes % denominaciones[i]  # Lo que falta repartir
+        if restante_billetes + monedas > 0:  # Lo que queda debajo de $10 va en monedas
+            print(f"${round(restante_billetes + monedas, 2)} en monedas")
+    return True
+
+
+def registrar_venta(lst_titulos, lst_butacas, lst_entradas, lst_valores, lst_estados):
+    '''Registra la venta de entradas de una pelicula: valida el estado y las
+    butacas disponibles, pide la cantidad y cobra con registrar_pago;
+    solo confirma la venta si el pago se completo'''
+    if len(lst_titulos) == 0:
+        print(Fore.RED + "No hay peliculas registradas.")
+        return
+
+    indice = ingresar_titulo("Seleccione una pelicula:", lst_titulos)
+
+    if lst_estados[indice] != "En cartelera" and lst_estados[indice] != "Funcion especial":
+        print(Fore.RED + "Solo se venden entradas de peliculas En cartelera o Funcion especial.")
+        return
+
+    disponibles = lst_butacas[indice] - lst_entradas[indice]  # El stock se calcula, no se guarda
+    if disponibles == 0:
+        print(Fore.RED + "Funcion agotada, no quedan entradas disponibles.")
+        return
+
+    print(f"Entradas disponibles: {disponibles}")
+    cantidad = ingresar_positivo("Ingrese cantidad de entradas a vender: ")
+    while cantidad > disponibles:  # Avisa y vuelve a preguntar, no expulsa al usuario
+        print(Fore.RED + f"No hay entradas suficientes, quedan {disponibles}")
+        cantidad = ingresar_positivo("Ingrese cantidad de entradas a vender: ")
+
+    total = round(cantidad * lst_valores[indice], 2) # Redondea a dos decimales 
+    print(f"Total a pagar: ${total}")
+
+    if registrar_pago(total):  # Solo se suman las entradas si el pago se completo
+        lst_entradas[indice] += cantidad
+        print("Venta registrada correctamente.")
+    else:
+        print("Venta cancelada.")
